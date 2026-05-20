@@ -1,0 +1,321 @@
+claim_id,payer,denial_code,denial_reason_text,billed_amount,allowed_amount,patient_balance,aging_days,specialty,cpt_codes,icd10_codes,service_date,remark_codes
+CLM-DF-2025000,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,137393.6,28599.59,5313.31,16,Gastroenterology,"73721,27447,45380",M17.11,2025-02-07,MA15
+CLM-DF-2025001,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",5687.93,961.33,1075.11,72,Cardiology,77067,"M17.11,I25.10",2025-12-14,N382
+CLM-DF-2025002,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,40460.79,26257.84,508.09,51,Orthopedic Surgery,"92928,27447","M17.11,R07.89",2025-09-04,M86
+CLM-DF-2025003,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",54803.44,29283.88,7908.72,49,Internal Medicine,73721,Z87.891,2025-04-25,N382
+CLM-DF-2025004,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,43680.08,3749.99,3884.83,84,Radiology,92928,"I25.10,K63.5",2025-12-22,
+CLM-DF-2025005,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,32323.74,20032.89,702.92,51,Radiology,"45380,92928,78452",I25.10,2025-01-26,N382
+CLM-DF-2025006,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,12991.94,10083.9,577.28,94,Radiology,77067,"Z87.891,R07.89",2025-03-09,MA15
+CLM-DF-2025007,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,104204.01,23271.92,16559.12,117,Internal Medicine,"92928,73721",S72.001A,2025-08-03,
+CLM-DF-2025008,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,116375.56,78351.88,5618.23,11,Cardiology,"77067,27447","S72.001A,M17.11",2025-11-24,
+CLM-DF-2025009,Lakeside Medicare Advantage,PR-96,Non-covered charge(s) (documentation does not support coded service).,49949.2,27213.2,887.69,58,Emergency Medicine,"99285,92928","S72.001A,I25.10",2025-09-04,N382
+CLM-DF-2025010,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",37439.42,11899.25,1444.1,102,Internal Medicine,92928,"M17.11,Z87.891",2025-06-27,N382
+CLM-DF-2025011,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,45168.55,21782.69,644.63,96,Cardiology,78452,Z87.891,2025-08-18,MA15
+CLM-DF-2025012,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",161502.17,58087.04,7666.1,72,Gastroenterology,"45380,92928,78452","Z87.891,K63.5",2025-08-17,M86
+CLM-DF-2025013,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,42189.25,12124.04,6190.67,32,Internal Medicine,99285,Z87.891,2025-11-02,MA15
+CLM-DF-2025014,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,159144.84,9585.09,12458.57,88,Cardiology,78452,"I25.10,R07.89",2025-07-07,
+CLM-DF-2025015,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,80199.63,28875.22,8389.42,96,Orthopedic Surgery,"73721,99285,45380","M17.11,I25.10",2025-04-07,M86
+CLM-DF-2025016,Apex Health Plan,CO-18,Duplicate claim/service.,34598.5,13605.3,6425.39,12,Cardiology,"73721,99285,92928",M17.11,2025-04-06,M86
+CLM-DF-2025017,Meridian Select,CO-18,Duplicate claim/service.,40172.25,13694.09,543.4,51,Orthopedic Surgery,"27447,J0897","K63.5,R07.89",2025-12-24,M86
+CLM-DF-2025018,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,55453.58,45660.64,1985.16,72,Orthopedic Surgery,"92928,99285,J0897","S72.001A,Z87.891",2025-03-02,
+CLM-DF-2025019,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,110405.47,63365.09,3872.43,18,Internal Medicine,99285,R07.89,2025-11-19,N382
+CLM-DF-2025020,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,124163.52,33158.65,8460.27,19,Gastroenterology,"27447,45380,78452",M17.11,2025-08-20,
+CLM-DF-2025021,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",40063.02,9031.02,10136.32,115,Orthopedic Surgery,92928,"I25.10,R07.89",2025-09-23,N382
+CLM-DF-2025022,Lakeside Medicare Advantage,PR-96,Non-covered charge(s) (documentation does not support coded service).,121262.44,806.35,34448.81,41,Gastroenterology,78452,"M17.11,Z87.891",2025-12-18,MA15
+CLM-DF-2025023,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,112209.65,68444.56,3118.66,84,Radiology,"77067,78452,99285",Z87.891,2025-07-27,N382
+CLM-DF-2025024,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,62241.11,6921.01,18970.88,23,Gastroenterology,"J0897,27447",M17.11,2025-02-23,MA15
+CLM-DF-2025025,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,154532.4,76514.11,4043.91,19,Orthopedic Surgery,"92928,J0897",K63.5,2025-04-22,MA15
+CLM-DF-2025026,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,144497.41,108591.9,5106.92,82,Gastroenterology,45380,I25.10,2025-07-01,MA15
+CLM-DF-2025027,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,172256.29,117461.54,16571.16,106,Emergency Medicine,"78452,J0897",R07.89,2025-01-28,M86
+CLM-DF-2025028,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,151215.25,59164.14,9832.61,104,Emergency Medicine,99285,R07.89,2025-06-09,
+CLM-DF-2025029,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,118960.94,40414.2,26973.14,71,Radiology,73721,"I25.10,S72.001A",2025-05-02,
+CLM-DF-2025030,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,64475.57,43099.59,3264.92,68,Orthopedic Surgery,"45380,78452",Z87.891,2025-07-01,MA15
+CLM-DF-2025031,UnifiedCare,CO-18,Duplicate claim/service.,13689.18,7728.94,688.83,43,Gastroenterology,27447,"Z87.891,R07.89",2025-06-13,N382
+CLM-DF-2025032,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,36136.95,20424.24,2085.09,98,Emergency Medicine,"27447,45380,77067",K63.5,2025-05-07,M86
+CLM-DF-2025033,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",121396.78,47980.86,11361.55,30,Internal Medicine,"78452,92928",K63.5,2025-09-22,N382
+CLM-DF-2025034,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,176158.34,35167.95,15318.16,106,Emergency Medicine,99285,I25.10,2025-08-20,
+CLM-DF-2025035,Meridian Select,CO-18,Duplicate claim/service.,164026.42,80261.45,21060.28,52,Cardiology,"45380,73721",M17.11,2025-07-08,MA15
+CLM-DF-2025036,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,10050.23,2128.83,2352.0,61,Emergency Medicine,"92928,J0897","S72.001A,Z87.891",2025-07-27,M86
+CLM-DF-2025037,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,159487.36,61013.37,25910.66,110,Gastroenterology,"77067,92928",K63.5,2025-08-03,N382
+CLM-DF-2025038,Apex Health Plan,CO-16,Claim/service lacks information which is needed for adjudication.,62663.12,47565.87,425.78,22,Emergency Medicine,"78452,92928",M17.11,2025-07-14,N382
+CLM-DF-2025039,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,77385.61,13605.1,9378.94,118,Internal Medicine,"99285,J0897,27447","R07.89,M17.11",2025-06-10,M86
+CLM-DF-2025040,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",138492.39,64289.89,15667.0,31,Cardiology,27447,"R07.89,M17.11",2025-07-11,M86
+CLM-DF-2025041,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,86893.27,9426.5,16871.48,6,Cardiology,"99285,77067,92928","I25.10,R07.89",2025-03-02,N382
+CLM-DF-2025042,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,39787.82,11053.81,7655.61,51,Radiology,"27447,J0897",R07.89,2025-01-24,
+CLM-DF-2025043,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,120556.54,80055.34,9238.9,99,Orthopedic Surgery,45380,S72.001A,2025-03-08,MA15
+CLM-DF-2025044,Meridian Select,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,21870.54,17618.76,692.03,35,Radiology,73721,K63.5,2025-02-19,
+CLM-DF-2025045,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",125567.37,102267.96,3234.64,94,Emergency Medicine,45380,Z87.891,2025-05-28,
+CLM-DF-2025046,Lakeside Medicare Advantage,PR-96,Non-covered charge(s) (documentation does not support coded service).,8364.93,3787.92,1059.73,11,Internal Medicine,"92928,99285,45380","M17.11,R07.89",2025-06-21,M86
+CLM-DF-2025047,Apex Health Plan,CO-18,Duplicate claim/service.,33244.43,14743.4,4211.95,81,Internal Medicine,"77067,45380","K63.5,I25.10",2025-02-09,M86
+CLM-DF-2025048,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,86399.3,44822.4,5515.02,6,Cardiology,"78452,45380",K63.5,2025-05-11,N382
+CLM-DF-2025049,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,162915.77,76965.05,15541.57,27,Orthopedic Surgery,J0897,"S72.001A,I25.10",2025-12-16,M86
+CLM-DF-2025050,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,3976.21,994.45,422.04,34,Radiology,"92928,45380,27447","R07.89,S72.001A",2025-06-12,M86
+CLM-DF-2025051,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,47108.56,4831.34,2849.67,18,Gastroenterology,"78452,73721,J0897","K63.5,S72.001A",2025-09-20,N382
+CLM-DF-2025052,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,36556.46,7068.58,1851.97,4,Gastroenterology,"78452,77067,99285",S72.001A,2025-05-23,MA15
+CLM-DF-2025053,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,161554.98,78831.49,13590.55,59,Radiology,99285,"R07.89,M17.11",2025-02-13,M86
+CLM-DF-2025054,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",116743.9,5319.75,5818.47,75,Radiology,45380,S72.001A,2025-07-20,MA15
+CLM-DF-2025055,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,83784.76,31529.28,15731.95,57,Radiology,"99285,27447,92928",I25.10,2025-11-07,N382
+CLM-DF-2025056,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,44983.17,21105.81,1308.15,55,Cardiology,"77067,78452,99285",K63.5,2025-12-10,M86
+CLM-DF-2025057,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,43796.67,9848.62,9401.46,78,Gastroenterology,J0897,S72.001A,2025-04-21,MA15
+CLM-DF-2025058,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,26999.92,1368.69,7110.62,79,Gastroenterology,"27447,45380,99285","Z87.891,K63.5",2025-12-13,N382
+CLM-DF-2025059,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",91757.08,6273.94,1192.6,58,Gastroenterology,"27447,99285",I25.10,2025-11-27,
+CLM-DF-2025060,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",8210.67,5278.05,482.93,86,Cardiology,"78452,27447","Z87.891,R07.89",2025-02-16,N382
+CLM-DF-2025061,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,59938.93,5329.16,3073.91,55,Gastroenterology,"27447,92928","S72.001A,M17.11",2025-08-03,N382
+CLM-DF-2025062,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,22152.76,14546.96,2302.42,108,Orthopedic Surgery,"77067,45380,99285",S72.001A,2025-06-20,M86
+CLM-DF-2025063,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,10306.89,2339.64,365.34,39,Cardiology,"77067,99285,J0897",Z87.891,2025-03-10,
+CLM-DF-2025064,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,17969.13,15155.5,899.03,62,Orthopedic Surgery,"78452,45380,92928","S72.001A,K63.5",2025-07-27,M86
+CLM-DF-2025065,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,84940.07,10443.01,4969.97,79,Internal Medicine,"78452,J0897,99285","R07.89,K63.5",2025-09-09,
+CLM-DF-2025066,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,55793.99,27835.46,9774.74,65,Emergency Medicine,"77067,78452","S72.001A,Z87.891",2025-07-15,N382
+CLM-DF-2025067,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,44787.98,14579.62,9050.56,55,Orthopedic Surgery,"77067,92928","R07.89,I25.10",2025-08-02,MA15
+CLM-DF-2025068,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",61953.42,5285.24,16760.4,15,Internal Medicine,"99285,92928",R07.89,2025-11-05,
+CLM-DF-2025069,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,179327.31,51606.28,30965.53,86,Orthopedic Surgery,"J0897,78452","S72.001A,M17.11",2025-10-03,MA15
+CLM-DF-2025070,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,138354.36,51035.57,3008.58,84,Gastroenterology,77067,Z87.891,2025-05-01,
+CLM-DF-2025071,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,11137.16,3393.42,1167.29,34,Internal Medicine,"78452,73721",M17.11,2025-10-28,M86
+CLM-DF-2025072,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,45160.85,35040.51,506.94,62,Gastroenterology,"77067,78452",R07.89,2025-05-22,MA15
+CLM-DF-2025073,Horizon National,CO-18,Duplicate claim/service.,174912.4,146839.65,2939.33,57,Gastroenterology,"77067,J0897","I25.10,R07.89",2025-08-04,MA15
+CLM-DF-2025074,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",66920.28,16829.88,12259.51,5,Gastroenterology,"27447,99285",S72.001A,2025-12-16,N382
+CLM-DF-2025075,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",148515.87,27646.8,8043.38,35,Gastroenterology,"78452,92928,99285",K63.5,2025-08-02,N382
+CLM-DF-2025076,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,168353.44,46753.65,17683.78,28,Emergency Medicine,"92928,27447,J0897","I25.10,K63.5",2025-08-26,N382
+CLM-DF-2025077,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,22014.26,18017.78,196.89,31,Gastroenterology,"J0897,77067,27447","M17.11,R07.89",2025-01-09,
+CLM-DF-2025078,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,124734.99,71284.76,10935.7,108,Gastroenterology,"73721,92928",R07.89,2025-01-20,N382
+CLM-DF-2025079,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,120097.57,64863.9,8975.12,92,Radiology,"J0897,99285,73721",M17.11,2025-05-16,
+CLM-DF-2025080,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,164233.16,18938.46,23069.21,88,Gastroenterology,"J0897,27447,92928",R07.89,2025-11-04,M86
+CLM-DF-2025081,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,173773.57,41319.73,32000.61,30,Cardiology,"45380,J0897","M17.11,K63.5",2025-09-21,N382
+CLM-DF-2025082,Horizon National,CO-18,Duplicate claim/service.,51617.36,42479.84,3035.06,108,Cardiology,45380,M17.11,2025-06-08,MA15
+CLM-DF-2025083,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,13437.99,8739.85,340.64,30,Emergency Medicine,"78452,J0897",K63.5,2025-03-05,N382
+CLM-DF-2025084,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,122566.82,2685.82,623.51,104,Emergency Medicine,"92928,99285,73721","M17.11,I25.10",2025-12-14,
+CLM-DF-2025085,Horizon National,CO-18,Duplicate claim/service.,83372.29,25656.42,11992.38,60,Internal Medicine,99285,"R07.89,M17.11",2025-01-16,M86
+CLM-DF-2025086,Meridian Select,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,20686.57,12526.57,1266.81,118,Orthopedic Surgery,"78452,99285",K63.5,2025-10-21,N382
+CLM-DF-2025087,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",98528.57,37998.34,12826.32,15,Gastroenterology,45380,"R07.89,I25.10",2025-07-11,M86
+CLM-DF-2025088,Meridian Select,CO-18,Duplicate claim/service.,135194.62,35916.63,10859.35,35,Radiology,77067,M17.11,2025-02-03,M86
+CLM-DF-2025089,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,136886.22,94452.02,8263.2,78,Internal Medicine,"92928,77067,99285","K63.5,R07.89",2025-12-02,N382
+CLM-DF-2025090,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,65573.23,32211.59,2484.06,87,Cardiology,73721,"S72.001A,K63.5",2025-02-25,N382
+CLM-DF-2025091,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,149490.18,107391.04,14359.65,107,Internal Medicine,"99285,27447,92928","M17.11,I25.10",2025-05-23,N382
+CLM-DF-2025092,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,1924.69,1423.08,99.43,54,Orthopedic Surgery,99285,Z87.891,2025-09-07,M86
+CLM-DF-2025093,Meridian Select,CO-18,Duplicate claim/service.,63593.04,20002.88,11009.07,102,Internal Medicine,"73721,99285,77067",S72.001A,2025-01-22,
+CLM-DF-2025094,UnifiedCare,CO-18,Duplicate claim/service.,122729.11,50664.1,11149.57,37,Emergency Medicine,"73721,78452,45380",K63.5,2025-11-22,M86
+CLM-DF-2025095,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,57610.85,10798.62,16129.43,10,Orthopedic Surgery,27447,I25.10,2025-05-10,N382
+CLM-DF-2025096,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,92418.38,33830.37,2649.06,71,Gastroenterology,92928,R07.89,2025-12-02,M86
+CLM-DF-2025097,Horizon National,CO-18,Duplicate claim/service.,170478.12,124925.26,9179.62,76,Cardiology,"J0897,78452,99285","M17.11,K63.5",2025-03-26,M86
+CLM-DF-2025098,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,81242.31,7310.48,11273.63,54,Internal Medicine,J0897,"Z87.891,K63.5",2025-04-11,MA15
+CLM-DF-2025099,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",117439.98,52967.09,4375.54,102,Radiology,"78452,73721",I25.10,2025-05-07,MA15
+CLM-DF-2025100,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,140831.66,78468.96,3866.56,101,Gastroenterology,"77067,J0897","Z87.891,S72.001A",2025-11-21,N382
+CLM-DF-2025101,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,81804.31,32605.8,10872.12,104,Radiology,"99285,78452,27447",K63.5,2025-08-15,
+CLM-DF-2025102,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,153998.52,10043.99,43544.45,112,Orthopedic Surgery,"J0897,45380,27447",R07.89,2025-10-21,MA15
+CLM-DF-2025103,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",88410.87,11337.1,1669.09,16,Radiology,"73721,27447,92928",M17.11,2025-04-23,M86
+CLM-DF-2025104,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",97090.19,13100.79,10960.46,39,Cardiology,"92928,77067",Z87.891,2025-11-11,
+CLM-DF-2025105,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,103576.82,34033.23,6133.64,112,Gastroenterology,"78452,77067,99285",K63.5,2025-05-21,M86
+CLM-DF-2025106,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",131367.23,9459.91,23847.84,85,Radiology,73721,"S72.001A,K63.5",2025-01-12,N382
+CLM-DF-2025107,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,63747.1,41514.2,1494.09,20,Emergency Medicine,27447,S72.001A,2025-09-27,
+CLM-DF-2025108,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,114641.4,58198.79,3047.25,26,Gastroenterology,"78452,92928,45380",R07.89,2025-06-22,MA15
+CLM-DF-2025109,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",53283.73,33902.1,3045.33,71,Emergency Medicine,"77067,J0897",K63.5,2025-11-19,M86
+CLM-DF-2025110,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,52702.35,17106.74,6571.34,23,Emergency Medicine,"78452,J0897,77067",Z87.891,2025-08-28,N382
+CLM-DF-2025111,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,131840.06,57814.9,3230.25,13,Emergency Medicine,"77067,27447",R07.89,2025-02-08,M86
+CLM-DF-2025112,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,77224.01,26023.4,6701.47,52,Orthopedic Surgery,"45380,99285","M17.11,K63.5",2025-03-05,
+CLM-DF-2025113,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,87826.2,62044.28,6847.53,63,Cardiology,"99285,77067,J0897","I25.10,Z87.891",2025-09-24,M86
+CLM-DF-2025114,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,53868.31,13789.13,669.82,56,Gastroenterology,"77067,99285,J0897","S72.001A,Z87.891",2025-01-21,MA15
+CLM-DF-2025115,Apex Health Plan,CO-16,Claim/service lacks information which is needed for adjudication.,79865.8,41736.92,3210.36,56,Emergency Medicine,"73721,27447,78452",S72.001A,2025-09-17,
+CLM-DF-2025116,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,87398.88,47223.38,13794.81,35,Gastroenterology,92928,K63.5,2025-04-24,
+CLM-DF-2025117,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,140180.26,15896.18,15324.81,46,Gastroenterology,77067,"Z87.891,I25.10",2025-03-03,M86
+CLM-DF-2025118,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,37933.06,25507.81,3852.16,43,Radiology,"J0897,77067,27447","K63.5,M17.11",2025-11-07,N382
+CLM-DF-2025119,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,144631.02,106438.09,4437.01,18,Radiology,"J0897,92928","R07.89,K63.5",2025-03-16,M86
+CLM-DF-2025120,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,96450.61,65680.54,7830.32,13,Cardiology,"78452,27447,77067","M17.11,Z87.891",2025-06-22,N382
+CLM-DF-2025121,UnifiedCare,CO-18,Duplicate claim/service.,111802.9,40494.86,17215.02,47,Cardiology,92928,"K63.5,M17.11",2025-02-22,M86
+CLM-DF-2025122,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",148361.88,85678.84,20903.31,21,Internal Medicine,"77067,99285,73721",I25.10,2025-11-12,N382
+CLM-DF-2025123,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",6765.38,882.36,926.42,50,Radiology,"73721,27447",S72.001A,2025-06-13,N382
+CLM-DF-2025124,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,177727.79,3914.69,11318.16,69,Cardiology,"73721,78452,J0897","I25.10,S72.001A",2025-05-23,M86
+CLM-DF-2025125,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,25801.17,1624.03,1461.02,94,Cardiology,92928,"Z87.891,M17.11",2025-09-18,N382
+CLM-DF-2025126,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,29812.47,17980.77,2899.67,25,Radiology,"45380,99285,73721",I25.10,2025-08-01,N382
+CLM-DF-2025127,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",68753.44,46966.33,4206.58,81,Orthopedic Surgery,27447,"Z87.891,R07.89",2025-09-14,M86
+CLM-DF-2025128,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,23885.19,6436.43,452.93,62,Gastroenterology,"92928,73721,27447",I25.10,2025-07-17,
+CLM-DF-2025129,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",28985.45,4056.76,2815.23,93,Emergency Medicine,"27447,J0897",K63.5,2025-04-21,N382
+CLM-DF-2025130,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,56580.29,25656.69,5439.48,24,Internal Medicine,"78452,73721,92928","S72.001A,M17.11",2025-01-03,
+CLM-DF-2025131,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,120738.14,78711.02,6127.78,84,Orthopedic Surgery,"27447,92928","R07.89,I25.10",2025-11-13,N382
+CLM-DF-2025132,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,127642.62,17151.13,16072.93,62,Emergency Medicine,"78452,77067","Z87.891,K63.5",2025-07-05,N382
+CLM-DF-2025133,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",20359.08,4183.33,693.66,60,Emergency Medicine,73721,K63.5,2025-07-28,M86
+CLM-DF-2025134,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,167005.65,115477.09,16840.21,95,Radiology,78452,"S72.001A,R07.89",2025-08-10,M86
+CLM-DF-2025135,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,174911.88,75147.01,33754.48,30,Internal Medicine,"99285,77067","R07.89,S72.001A",2025-11-22,M86
+CLM-DF-2025136,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",2306.28,210.73,98.23,36,Gastroenterology,"J0897,78452",R07.89,2025-01-19,MA15
+CLM-DF-2025137,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",53960.43,17720.42,5712.3,73,Radiology,"73721,77067,99285","K63.5,Z87.891",2025-09-12,MA15
+CLM-DF-2025138,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",94580.37,40202.92,862.22,20,Gastroenterology,"77067,27447","I25.10,S72.001A",2025-09-05,N382
+CLM-DF-2025139,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,30732.88,25877.8,1256.31,41,Internal Medicine,"77067,92928","R07.89,M17.11",2025-06-11,
+CLM-DF-2025140,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",57474.26,43907.58,4141.02,83,Orthopedic Surgery,"77067,78452,92928",Z87.891,2025-01-19,M86
+CLM-DF-2025141,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",116666.45,61457.02,16254.13,21,Gastroenterology,99285,I25.10,2025-01-15,N382
+CLM-DF-2025142,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,76867.25,13321.7,11160.94,81,Cardiology,"99285,92928,73721",S72.001A,2025-06-22,M86
+CLM-DF-2025143,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,58593.23,8625.22,15951.96,46,Internal Medicine,"27447,77067","I25.10,Z87.891",2025-05-18,N382
+CLM-DF-2025144,Apex Health Plan,CO-16,Claim/service lacks information which is needed for adjudication.,142850.3,85591.01,13832.93,65,Radiology,"92928,27447","K63.5,M17.11",2025-10-22,M86
+CLM-DF-2025145,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,64373.81,42300.33,1131.63,8,Radiology,"73721,78452,45380","Z87.891,R07.89",2025-04-07,N382
+CLM-DF-2025146,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,50832.67,4719.44,11957.71,33,Emergency Medicine,45380,M17.11,2025-02-14,N382
+CLM-DF-2025147,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,126275.56,14754.92,37647.31,23,Cardiology,"77067,45380,92928",K63.5,2025-06-10,
+CLM-DF-2025148,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,106555.36,48469.84,14700.93,7,Emergency Medicine,"78452,99285","R07.89,I25.10",2025-12-28,N382
+CLM-DF-2025149,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,55763.85,28571.47,8836.41,45,Radiology,"77067,73721","K63.5,I25.10",2025-02-11,MA15
+CLM-DF-2025150,Meridian Select,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,48188.19,7626.71,10457.41,104,Radiology,"45380,73721,27447","R07.89,S72.001A",2025-06-03,M86
+CLM-DF-2025151,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,181626.41,73710.53,35346.65,3,Radiology,"45380,77067","K63.5,Z87.891",2025-10-24,
+CLM-DF-2025152,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,67029.5,13463.36,12519.75,62,Radiology,J0897,"Z87.891,M17.11",2025-11-10,N382
+CLM-DF-2025153,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,41163.49,4673.43,1956.41,98,Internal Medicine,"J0897,92928","S72.001A,I25.10",2025-04-22,
+CLM-DF-2025154,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,98089.49,30164.2,21806.44,17,Orthopedic Surgery,"45380,27447,J0897",I25.10,2025-06-28,M86
+CLM-DF-2025155,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,38634.95,19150.4,620.18,68,Cardiology,77067,S72.001A,2025-07-15,
+CLM-DF-2025156,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,124723.81,32670.67,701.41,35,Orthopedic Surgery,"45380,27447,99285",R07.89,2025-06-23,
+CLM-DF-2025157,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,172950.15,10146.34,53207.78,7,Radiology,"78452,J0897",Z87.891,2025-12-21,M86
+CLM-DF-2025158,UnifiedCare,CO-18,Duplicate claim/service.,83420.54,65030.3,2429.79,13,Gastroenterology,"78452,92928,77067",I25.10,2025-09-13,MA15
+CLM-DF-2025159,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,1439.78,27.82,147.45,89,Gastroenterology,"J0897,27447,45380",I25.10,2025-08-12,MA15
+CLM-DF-2025160,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,173470.99,106905.03,2629.06,106,Gastroenterology,"99285,73721",M17.11,2025-02-20,
+CLM-DF-2025161,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",124586.75,92366.19,2759.91,8,Cardiology,"45380,27447",M17.11,2025-03-17,N382
+CLM-DF-2025162,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,169600.33,83052.23,17492.77,101,Gastroenterology,"45380,78452",Z87.891,2025-09-08,M86
+CLM-DF-2025163,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,12028.4,9697.8,717.59,119,Emergency Medicine,"J0897,27447,45380",K63.5,2025-11-22,M86
+CLM-DF-2025164,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,129060.01,44786.44,8845.44,26,Internal Medicine,"45380,J0897",K63.5,2025-12-05,M86
+CLM-DF-2025165,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",76815.19,27195.01,9204.4,52,Emergency Medicine,"45380,78452",R07.89,2025-06-03,MA15
+CLM-DF-2025166,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,70274.34,36136.75,472.52,12,Emergency Medicine,"45380,77067,73721","K63.5,M17.11",2025-04-07,
+CLM-DF-2025167,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,128934.36,77128.96,7191.69,33,Internal Medicine,"27447,45380","S72.001A,K63.5",2025-05-09,N382
+CLM-DF-2025168,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,86637.95,59121.23,6957.46,100,Radiology,92928,"R07.89,M17.11",2025-10-28,MA15
+CLM-DF-2025169,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,48834.59,38801.26,2033.76,56,Radiology,45380,"I25.10,R07.89",2025-10-27,MA15
+CLM-DF-2025170,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",121378.79,70656.98,4568.23,108,Cardiology,"77067,45380,73721","I25.10,Z87.891",2025-12-18,M86
+CLM-DF-2025171,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",183217.6,149075.25,6261.04,110,Orthopedic Surgery,"99285,J0897,77067","I25.10,Z87.891",2025-02-23,MA15
+CLM-DF-2025172,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,93956.0,29804.78,13872.21,88,Internal Medicine,"77067,99285",S72.001A,2025-09-14,
+CLM-DF-2025173,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",133827.9,60942.2,7313.42,67,Gastroenterology,"J0897,77067,73721",M17.11,2025-09-05,MA15
+CLM-DF-2025174,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",97773.19,67750.19,2809.06,53,Orthopedic Surgery,"J0897,45380",Z87.891,2025-04-10,
+CLM-DF-2025175,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,75452.26,24189.55,8540.46,84,Orthopedic Surgery,"78452,99285,45380","Z87.891,K63.5",2025-10-28,
+CLM-DF-2025176,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,43122.99,33035.75,2444.15,75,Cardiology,"99285,77067","S72.001A,Z87.891",2025-11-02,MA15
+CLM-DF-2025177,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,177902.62,88769.97,23467.65,94,Cardiology,27447,S72.001A,2025-04-19,M86
+CLM-DF-2025178,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,71504.47,44960.82,7343.95,91,Gastroenterology,92928,M17.11,2025-07-08,
+CLM-DF-2025179,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",142450.84,115617.32,3725.73,102,Radiology,27447,"R07.89,I25.10",2025-06-18,M86
+CLM-DF-2025180,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,125999.79,70757.84,1656.87,82,Radiology,73721,K63.5,2025-03-13,MA15
+CLM-DF-2025181,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,67240.98,5230.83,20465.59,59,Radiology,"73721,77067",I25.10,2025-07-15,M86
+CLM-DF-2025182,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,17307.79,8153.47,1912.55,103,Radiology,"99285,78452","R07.89,M17.11",2025-12-18,MA15
+CLM-DF-2025183,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",32037.17,10367.94,1053.0,41,Radiology,"78452,99285",R07.89,2025-05-14,N382
+CLM-DF-2025184,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,14968.91,3202.52,1015.52,83,Cardiology,"45380,77067,99285",K63.5,2025-01-13,N382
+CLM-DF-2025185,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,148910.88,41711.49,12559.23,107,Gastroenterology,"78452,77067,J0897",R07.89,2025-06-06,M86
+CLM-DF-2025186,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,136163.86,73251.68,21309.43,103,Emergency Medicine,"J0897,78452","K63.5,M17.11",2025-10-07,MA15
+CLM-DF-2025187,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,176343.45,69193.45,26565.54,59,Radiology,"73721,J0897,45380","I25.10,K63.5",2025-04-09,MA15
+CLM-DF-2025188,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,70241.71,26811.73,9088.89,77,Cardiology,"J0897,27447,99285","Z87.891,S72.001A",2025-10-21,
+CLM-DF-2025189,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,46524.14,26285.66,1178.25,81,Orthopedic Surgery,"J0897,77067,78452","M17.11,Z87.891",2025-02-09,MA15
+CLM-DF-2025190,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,96362.55,47549.19,9827.71,60,Radiology,"77067,J0897",K63.5,2025-01-16,
+CLM-DF-2025191,UnifiedCare,CO-18,Duplicate claim/service.,170364.86,12432.64,45952.15,96,Emergency Medicine,"27447,78452","I25.10,S72.001A",2025-08-12,M86
+CLM-DF-2025192,Horizon National,CO-18,Duplicate claim/service.,133791.28,51453.47,1935.85,8,Gastroenterology,99285,"Z87.891,M17.11",2025-11-26,MA15
+CLM-DF-2025193,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",32934.29,4482.86,5574.98,62,Emergency Medicine,"78452,73721","R07.89,M17.11",2025-12-20,MA15
+CLM-DF-2025194,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",79923.63,302.31,5985.82,38,Gastroenterology,73721,K63.5,2025-06-07,M86
+CLM-DF-2025195,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,124343.2,51734.4,24546.91,43,Internal Medicine,"J0897,27447",K63.5,2025-06-28,M86
+CLM-DF-2025196,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,150690.59,90427.93,6273.69,81,Internal Medicine,78452,"M17.11,I25.10",2025-05-04,MA15
+CLM-DF-2025197,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,26838.24,8861.82,3752.56,76,Cardiology,"78452,45380",S72.001A,2025-03-16,N382
+CLM-DF-2025198,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,58745.64,22520.19,679.73,48,Orthopedic Surgery,"78452,73721","S72.001A,Z87.891",2025-11-16,M86
+CLM-DF-2025199,Meridian Select,CO-18,Duplicate claim/service.,131608.23,49652.36,4797.59,75,Orthopedic Surgery,27447,K63.5,2025-04-18,N382
+CLM-DF-2025200,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,85038.6,53671.31,8408.69,73,Internal Medicine,73721,"S72.001A,K63.5",2025-09-27,
+CLM-DF-2025201,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",41055.42,14836.67,6753.85,86,Emergency Medicine,"99285,45380","K63.5,M17.11",2025-08-28,
+CLM-DF-2025202,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,150131.44,75025.98,9217.0,93,Internal Medicine,"J0897,73721,27447",I25.10,2025-04-26,
+CLM-DF-2025203,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,98846.12,50147.51,2869.91,93,Radiology,"27447,J0897",I25.10,2025-07-02,N382
+CLM-DF-2025204,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,160331.71,34026.5,31448.51,109,Emergency Medicine,"J0897,45380,73721","Z87.891,R07.89",2025-07-15,
+CLM-DF-2025205,Horizon National,CO-18,Duplicate claim/service.,95776.0,22650.24,23964.6,50,Cardiology,"92928,27447",Z87.891,2025-02-24,M86
+CLM-DF-2025206,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,12465.51,5662.59,518.66,57,Emergency Medicine,"27447,78452","K63.5,S72.001A",2025-10-05,M86
+CLM-DF-2025207,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,141207.19,5514.35,29738.83,110,Cardiology,73721,R07.89,2025-08-01,M86
+CLM-DF-2025208,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,168312.81,126205.25,4448.79,114,Radiology,92928,"M17.11,K63.5",2025-11-21,MA15
+CLM-DF-2025209,Horizon National,CO-18,Duplicate claim/service.,116036.31,71604.86,11744.62,57,Gastroenterology,73721,I25.10,2025-08-03,MA15
+CLM-DF-2025210,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,96481.63,36499.66,169.26,46,Orthopedic Surgery,"78452,45380",I25.10,2025-07-03,
+CLM-DF-2025211,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,68504.86,17425.38,6842.22,107,Emergency Medicine,"78452,99285,27447",S72.001A,2025-11-06,M86
+CLM-DF-2025212,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,40044.81,25469.64,4692.66,81,Gastroenterology,"45380,99285",I25.10,2025-02-19,M86
+CLM-DF-2025213,UnifiedCare,CO-18,Duplicate claim/service.,58731.58,6980.58,5016.67,13,Emergency Medicine,"27447,J0897,92928",Z87.891,2025-05-07,MA15
+CLM-DF-2025214,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,119824.47,79830.82,11111.13,33,Cardiology,"73721,77067","Z87.891,S72.001A",2025-02-17,
+CLM-DF-2025215,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,25111.25,18373.7,1340.32,49,Internal Medicine,"78452,J0897,45380",M17.11,2025-10-03,
+CLM-DF-2025216,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,8136.11,418.18,2132.09,67,Radiology,"J0897,45380,92928","M17.11,S72.001A",2025-09-20,MA15
+CLM-DF-2025217,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,57884.85,25157.28,2327.56,106,Emergency Medicine,"92928,45380,27447",K63.5,2025-12-14,MA15
+CLM-DF-2025218,Horizon National,CO-97,The benefit for this service is included in the payment/allowance for another service.,16680.4,6160.26,1669.34,80,Orthopedic Surgery,"78452,99285",Z87.891,2025-03-23,
+CLM-DF-2025219,Apex Health Plan,CO-18,Duplicate claim/service.,176345.58,78395.23,26842.85,95,Radiology,92928,Z87.891,2025-05-24,
+CLM-DF-2025220,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,149469.27,34554.83,2568.93,94,Internal Medicine,"73721,45380,J0897","M17.11,R07.89",2025-10-06,N382
+CLM-DF-2025221,Apex Health Plan,CO-16,Claim/service lacks information which is needed for adjudication.,143247.19,108886.22,8107.2,17,Emergency Medicine,"99285,77067,J0897",M17.11,2025-08-12,M86
+CLM-DF-2025222,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,172319.69,125597.35,9040.9,119,Gastroenterology,"J0897,73721,78452",R07.89,2025-12-11,N382
+CLM-DF-2025223,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",69471.26,29645.8,12572.08,25,Emergency Medicine,"99285,45380,77067","K63.5,Z87.891",2025-06-03,M86
+CLM-DF-2025224,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,37763.63,18097.68,2091.83,82,Emergency Medicine,"92928,27447","I25.10,S72.001A",2025-04-05,
+CLM-DF-2025225,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,43718.18,12873.26,9063.81,115,Orthopedic Surgery,"99285,J0897","Z87.891,K63.5",2025-02-07,MA15
+CLM-DF-2025226,Meridian Select,CO-18,Duplicate claim/service.,177850.29,147024.45,1536.07,38,Orthopedic Surgery,45380,"Z87.891,K63.5",2025-08-24,
+CLM-DF-2025227,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,93899.79,50859.26,5940.58,78,Internal Medicine,J0897,I25.10,2025-05-09,N382
+CLM-DF-2025228,Meridian Select,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,154035.95,42716.3,17640.3,32,Orthopedic Surgery,78452,I25.10,2025-02-06,M86
+CLM-DF-2025229,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,75679.61,34474.78,13911.66,29,Cardiology,"77067,78452",M17.11,2025-03-26,N382
+CLM-DF-2025230,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,40406.83,29419.7,570.38,94,Emergency Medicine,"J0897,27447",Z87.891,2025-05-09,MA15
+CLM-DF-2025231,Horizon National,CO-18,Duplicate claim/service.,158217.56,74767.4,16067.69,15,Cardiology,78452,M17.11,2025-01-27,MA15
+CLM-DF-2025232,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,152520.64,48258.11,23000.75,85,Orthopedic Surgery,"27447,J0897,99285",M17.11,2025-04-21,M86
+CLM-DF-2025233,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,167515.36,118090.41,5735.39,8,Cardiology,78452,"Z87.891,R07.89",2025-08-01,M86
+CLM-DF-2025234,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,65996.35,50953.05,1447.82,60,Emergency Medicine,45380,"R07.89,Z87.891",2025-09-16,
+CLM-DF-2025235,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,71351.41,25426.05,10329.92,105,Internal Medicine,99285,"Z87.891,K63.5",2025-08-18,M86
+CLM-DF-2025236,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",93340.84,30814.06,3935.16,43,Internal Medicine,99285,"M17.11,R07.89",2025-09-12,MA15
+CLM-DF-2025237,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,46455.27,9522.4,6898.74,104,Gastroenterology,45380,"K63.5,I25.10",2025-03-08,N382
+CLM-DF-2025238,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",5995.65,3570.27,804.37,75,Emergency Medicine,"45380,J0897,77067","I25.10,R07.89",2025-01-03,
+CLM-DF-2025239,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",41104.61,18393.54,5.43,120,Internal Medicine,78452,"Z87.891,I25.10",2025-06-02,
+CLM-DF-2025240,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",130605.07,15725.47,4459.88,70,Radiology,92928,"S72.001A,M17.11",2025-06-10,N382
+CLM-DF-2025241,Apex Health Plan,CO-97,The benefit for this service is included in the payment/allowance for another service.,135699.24,50390.3,19087.29,65,Gastroenterology,"78452,92928","I25.10,S72.001A",2025-03-13,N382
+CLM-DF-2025242,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,33533.87,51.25,8226.78,76,Cardiology,"99285,73721,27447","S72.001A,I25.10",2025-11-19,
+CLM-DF-2025243,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,61801.22,4087.26,7005.52,43,Emergency Medicine,"73721,J0897,92928","R07.89,M17.11",2025-05-07,MA15
+CLM-DF-2025244,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,48076.39,4414.83,19.58,52,Cardiology,"J0897,73721,45380","R07.89,K63.5",2025-09-13,
+CLM-DF-2025245,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,159958.14,88508.7,17184.03,23,Cardiology,99285,"M17.11,K63.5",2025-05-04,
+CLM-DF-2025246,UnifiedCare,CO-97,The benefit for this service is included in the payment/allowance for another service.,164356.94,22478.9,3724.42,117,Orthopedic Surgery,"77067,92928",R07.89,2025-11-06,M86
+CLM-DF-2025247,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,19451.69,3398.56,1067.44,92,Internal Medicine,"27447,92928,78452","I25.10,M17.11",2025-01-13,M86
+CLM-DF-2025248,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,67264.69,24448.36,4414.03,87,Gastroenterology,"77067,73721,99285",I25.10,2025-03-21,N382
+CLM-DF-2025249,Horizon National,CO-18,Duplicate claim/service.,156222.26,40945.92,16036.5,65,Gastroenterology,"73721,92928","I25.10,K63.5",2025-07-12,MA15
+CLM-DF-2025250,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,49299.12,19487.91,2360.59,37,Internal Medicine,78452,M17.11,2025-11-12,M86
+CLM-DF-2025251,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,102773.47,73449.9,8399.5,56,Internal Medicine,"77067,27447,73721","K63.5,M17.11",2025-07-28,
+CLM-DF-2025252,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",166663.82,113395.19,12631.97,82,Emergency Medicine,77067,I25.10,2025-04-26,MA15
+CLM-DF-2025253,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,78785.66,66182.94,1920.5,108,Gastroenterology,27447,"Z87.891,M17.11",2025-02-13,M86
+CLM-DF-2025254,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,158590.17,70054.82,28420.44,4,Gastroenterology,"J0897,99285,45380",I25.10,2025-10-19,
+CLM-DF-2025255,Horizon National,CO-15,"The authorization number is missing, incomplete, or invalid.",144392.13,96437.16,14559.91,115,Radiology,"27447,45380","S72.001A,Z87.891",2025-08-02,MA15
+CLM-DF-2025256,UnifiedCare,CO-18,Duplicate claim/service.,27297.66,14122.63,3198.65,7,Cardiology,"45380,99285","K63.5,Z87.891",2025-01-11,N382
+CLM-DF-2025257,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,156052.34,113840.11,10118.2,114,Emergency Medicine,27447,"K63.5,Z87.891",2025-12-14,
+CLM-DF-2025258,Apex Health Plan,CO-18,Duplicate claim/service.,39738.13,27831.55,3087.74,100,Internal Medicine,"99285,27447",M17.11,2025-05-23,M86
+CLM-DF-2025259,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,157608.6,117801.82,403.32,27,Emergency Medicine,45380,R07.89,2025-01-12,MA15
+CLM-DF-2025260,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,152489.86,65472.65,19352.06,18,Gastroenterology,45380,"R07.89,S72.001A",2025-08-06,M86
+CLM-DF-2025261,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",65225.77,9065.51,17582.21,98,Gastroenterology,27447,R07.89,2025-01-06,MA15
+CLM-DF-2025262,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,42265.64,7426.97,7945.15,68,Orthopedic Surgery,"99285,45380,73721",S72.001A,2025-01-08,N382
+CLM-DF-2025263,Lakeside Medicare Advantage,PR-96,Non-covered charge(s) (documentation does not support coded service).,174501.52,105718.15,17077.46,38,Cardiology,"92928,45380","I25.10,R07.89",2025-05-22,M86
+CLM-DF-2025264,Lakeside Medicare Advantage,CO-50,These services are not medically necessary based on payer guidelines.,2153.42,1829.36,109.62,110,Radiology,"27447,78452,92928",R07.89,2025-02-11,N382
+CLM-DF-2025265,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,51802.2,28890.17,7635.79,86,Radiology,78452,M17.11,2025-10-13,N382
+CLM-DF-2025266,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,5488.86,2320.51,327.8,119,Cardiology,"J0897,92928",S72.001A,2025-12-19,MA15
+CLM-DF-2025267,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,132202.62,77123.09,12305.3,63,Gastroenterology,"27447,J0897",Z87.891,2025-09-06,N382
+CLM-DF-2025268,Horizon National,CO-18,Duplicate claim/service.,24367.31,5357.25,5378.33,100,Emergency Medicine,"92928,77067,99285",K63.5,2025-04-24,N382
+CLM-DF-2025269,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,164156.58,51862.0,23014.75,62,Orthopedic Surgery,"99285,J0897",R07.89,2025-04-17,
+CLM-DF-2025270,Meridian Select,CO-15,"The authorization number is missing, incomplete, or invalid.",55757.13,2562.19,15904.43,20,Emergency Medicine,"J0897,27447","I25.10,K63.5",2025-12-06,
+CLM-DF-2025271,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,117036.24,17590.62,22084.35,3,Cardiology,"45380,J0897",S72.001A,2025-03-16,
+CLM-DF-2025272,Apex Health Plan,CO-15,"The authorization number is missing, incomplete, or invalid.",80689.64,29451.58,7693.85,64,Cardiology,99285,Z87.891,2025-06-01,N382
+CLM-DF-2025273,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,4100.15,14.37,1049.07,31,Gastroenterology,"27447,73721",R07.89,2025-09-19,N382
+CLM-DF-2025274,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,152552.03,38667.66,11592.26,96,Internal Medicine,"92928,45380,77067",K63.5,2025-08-12,MA15
+CLM-DF-2025275,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,75104.74,14582.0,15403.59,19,Emergency Medicine,"99285,27447,J0897",M17.11,2025-06-23,
+CLM-DF-2025276,Meridian Select,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,47916.37,21779.11,444.48,9,Gastroenterology,99285,Z87.891,2025-02-14,M86
+CLM-DF-2025277,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,101609.42,40972.67,3249.8,91,Gastroenterology,"99285,78452,45380",Z87.891,2025-09-09,MA15
+CLM-DF-2025278,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,166326.16,72326.44,20322.2,39,Orthopedic Surgery,77067,S72.001A,2025-04-25,N382
+CLM-DF-2025279,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,66729.2,23241.3,2441.01,73,Cardiology,77067,"I25.10,M17.11",2025-01-22,
+CLM-DF-2025280,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,106558.94,44753.52,20538.32,102,Internal Medicine,73721,"Z87.891,I25.10",2025-08-10,N382
+CLM-DF-2025281,Meridian Select,CO-50,These services are not medically necessary based on payer guidelines.,19184.8,2848.88,225.53,40,Radiology,"92928,45380,77067",M17.11,2025-01-01,MA15
+CLM-DF-2025282,Apex Health Plan,CO-16,Claim/service lacks information which is needed for adjudication.,66656.55,24800.06,9109.33,115,Gastroenterology,92928,"I25.10,M17.11",2025-07-13,M86
+CLM-DF-2025283,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,71848.79,51951.77,5570.46,86,Emergency Medicine,78452,I25.10,2025-02-14,M86
+CLM-DF-2025284,Lakeside Medicare Advantage,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,81509.59,42354.39,10677.92,81,Orthopedic Surgery,"78452,45380,J0897",R07.89,2025-08-02,
+CLM-DF-2025285,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,58682.63,35144.03,5585.12,101,Gastroenterology,"45380,92928,78452",R07.89,2025-11-24,MA15
+CLM-DF-2025286,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,123055.5,67089.09,2911.88,108,Internal Medicine,"99285,77067,92928",S72.001A,2025-08-28,M86
+CLM-DF-2025287,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,139213.41,37941.05,11728.68,38,Orthopedic Surgery,"45380,27447,92928","R07.89,I25.10",2025-02-15,M86
+CLM-DF-2025288,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,17013.26,7208.31,1084.64,66,Gastroenterology,"99285,77067,45380","M17.11,S72.001A",2025-09-01,
+CLM-DF-2025289,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",118234.52,89455.56,5664.17,86,Gastroenterology,"92928,78452",I25.10,2025-08-11,M86
+CLM-DF-2025290,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,84156.48,6969.96,17800.65,3,Radiology,"27447,77067","Z87.891,M17.11",2025-01-06,M86
+CLM-DF-2025291,Apex Health Plan,PR-96,Non-covered charge(s) (documentation does not support coded service).,132844.9,81477.13,1923.03,81,Emergency Medicine,73721,"I25.10,R07.89",2025-04-23,N382
+CLM-DF-2025292,Horizon National,PR-96,Non-covered charge(s) (documentation does not support coded service).,77145.44,60762.26,4802.13,78,Orthopedic Surgery,"77067,92928",R07.89,2025-01-17,
+CLM-DF-2025293,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,155309.93,63753.51,16289.4,120,Emergency Medicine,"78452,92928,73721",R07.89,2025-11-20,N382
+CLM-DF-2025294,Lakeside Medicare Advantage,CO-18,Duplicate claim/service.,77918.05,40333.86,9109.67,34,Radiology,"92928,78452","I25.10,Z87.891",2025-07-20,N382
+CLM-DF-2025295,Lakeside Medicare Advantage,PR-96,Non-covered charge(s) (documentation does not support coded service).,58622.37,36714.95,4244.64,30,Emergency Medicine,27447,"Z87.891,I25.10",2025-12-21,MA15
+CLM-DF-2025296,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",128692.27,35264.79,3773.71,48,Internal Medicine,"J0897,92928","R07.89,M17.11",2025-09-04,
+CLM-DF-2025297,Meridian Select,CO-97,The benefit for this service is included in the payment/allowance for another service.,10574.57,508.79,940.57,103,Emergency Medicine,"27447,73721",Z87.891,2025-05-07,
+CLM-DF-2025298,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,84167.91,44078.1,9478.6,74,Emergency Medicine,"J0897,73721,27447","Z87.891,M17.11",2025-07-13,M86
+CLM-DF-2025299,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",10710.36,6770.23,280.07,114,Cardiology,92928,Z87.891,2025-04-10,M86
+CLM-DF-2025300,Apex Health Plan,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,14517.19,11876.57,679.37,18,Cardiology,J0897,"S72.001A,K63.5",2025-03-06,N382
+CLM-DF-2025301,Horizon National,CO-16,Claim/service lacks information which is needed for adjudication.,86698.23,69087.24,246.19,44,Internal Medicine,27447,"S72.001A,Z87.891",2025-06-03,N382
+CLM-DF-2025302,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,177077.14,78359.35,27166.19,23,Cardiology,"J0897,99285,78452",I25.10,2025-11-11,N382
+CLM-DF-2025303,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,41037.62,26254.12,2744.92,74,Gastroenterology,73721,"R07.89,I25.10",2025-11-20,MA15
+CLM-DF-2025304,Horizon National,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,163938.6,53143.44,30875.54,17,Cardiology,"27447,99285","S72.001A,Z87.891",2025-08-16,
+CLM-DF-2025305,UnifiedCare,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,36260.78,15839.09,6777.43,24,Internal Medicine,"99285,92928,77067",Z87.891,2025-11-25,MA15
+CLM-DF-2025306,Meridian Select,PR-96,Non-covered charge(s) (documentation does not support coded service).,19943.32,9115.91,2663.11,97,Cardiology,"73721,92928,J0897",M17.11,2025-08-23,N382
+CLM-DF-2025307,Horizon National,CO-50,These services are not medically necessary based on payer guidelines.,14292.29,2162.33,1069.47,12,Internal Medicine,27447,"R07.89,Z87.891",2025-11-13,M86
+CLM-DF-2025308,UnifiedCare,CO-50,These services are not medically necessary based on payer guidelines.,72546.24,7295.24,134.72,95,Internal Medicine,99285,K63.5,2025-09-04,N382
+CLM-DF-2025309,UnifiedCare,CO-15,"The authorization number is missing, incomplete, or invalid.",16734.26,10885.35,895.97,53,Gastroenterology,77067,S72.001A,2025-04-05,M86
+CLM-DF-2025310,Lakeside Medicare Advantage,CO-16,Claim/service lacks information which is needed for adjudication.,177656.73,21756.59,36956.31,120,Gastroenterology,"92928,99285,27447",M17.11,2025-01-01,M86
+CLM-DF-2025311,Lakeside Medicare Advantage,CO-15,"The authorization number is missing, incomplete, or invalid.",175233.6,45383.31,34008.29,118,Gastroenterology,"45380,77067",I25.10,2025-03-08,N382
+CLM-DF-2025312,Apex Health Plan,CO-50,These services are not medically necessary based on payer guidelines.,34206.14,23250.29,3268.0,111,Internal Medicine,"73721,78452",K63.5,2025-02-07,M86
+CLM-DF-2025313,UnifiedCare,CO-16,Claim/service lacks information which is needed for adjudication.,24417.23,13604.11,378.63,82,Orthopedic Surgery,92928,"R07.89,K63.5",2025-10-22,N382
+CLM-DF-2025314,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,104974.68,32523.19,8021.58,57,Emergency Medicine,92928,I25.10,2025-12-24,M86
+CLM-DF-2025315,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,67017.32,38712.1,3284.74,64,Cardiology,"92928,J0897","R07.89,S72.001A",2025-02-06,
+CLM-DF-2025316,UnifiedCare,PR-96,Non-covered charge(s) (documentation does not support coded service).,153030.92,115936.6,2550.28,96,Gastroenterology,73721,S72.001A,2025-11-01,M86
+CLM-DF-2025317,Lakeside Medicare Advantage,CO-97,The benefit for this service is included in the payment/allowance for another service.,167741.12,78646.25,16947.12,72,Cardiology,"78452,77067,45380",S72.001A,2025-12-28,N382
+CLM-DF-2025318,Apex Health Plan,CO-18,Duplicate claim/service.,93106.89,7166.52,10944.76,4,Gastroenterology,78452,R07.89,2025-03-06,MA15
+CLM-DF-2025319,Meridian Select,CO-16,Claim/service lacks information which is needed for adjudication.,8245.33,5336.8,235.92,36,Radiology,99285,S72.001A,2025-06-13,M86

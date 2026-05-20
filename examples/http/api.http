@@ -1,0 +1,46 @@
+### DenialFlow AI — example HTTP calls (VS Code REST Client)
+
+@base = http://127.0.0.1:8000
+
+### Health-ish
+GET {{base}}/docs
+
+### Upload claims CSV (multipart)
+
+Use `curl` or the Streamlit **Upload** page. REST multipart examples vary by client; prefer UI for demos.
+
+### Start workflow (replace batch id)
+POST {{base}}/v1/workflows/run
+Content-Type: application/json
+
+{
+  "batch_id": "REPLACE_BATCH_ID",
+  "max_claims": 3
+}
+
+### Workflow run + events
+GET {{base}}/v1/workflows/REPLACE_RUN_ID
+GET {{base}}/v1/workflows/REPLACE_RUN_ID/events
+
+### Metrics
+GET {{base}}/v1/metrics/dashboard
+GET {{base}}/v1/metrics/ops
+
+### Claims
+GET {{base}}/v1/claims/summary?limit=50
+
+### Appeals queue + detail + HITL
+GET {{base}}/v1/appeals?limit=20
+GET {{base}}/v1/appeals/REPLACE_APPEAL_ID
+
+POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/approve
+
+POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/reject
+Content-Type: application/json
+
+{ "reason": "Insufficient documentation for payer policy section X." }
+
+POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/edit
+Content-Type: application/json
+
+{ "final_text": "Dear Payer,\n\nPlease reconsider...\n", "reason": "Legal tone adjustment" }
