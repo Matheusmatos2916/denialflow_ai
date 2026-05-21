@@ -5,6 +5,13 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .env
+gcp/key_gmail.json
+gcp/gmail_token.json
+gcp/token.json
+gcp/*.json
 data/chroma/
-data/denialflow.db
+data/*.db
 .streamlit/secrets.toml
+examples/http/api.http
+
+*.log
