@@ -43,6 +43,19 @@ def parse_claims_csv(content: bytes, filename: str) -> ParsedCsv:
                     "icd10_codes": row.get("icd10_codes") or "",
                     "service_date": row.get("service_date") or "",
                     "remark_codes": row.get("remark_codes") or "",
+                    "provider_name": row.get("provider_name") or "",
+                    "provider_address": row.get("provider_address") or "",
+                    "provider_city": row.get("provider_city") or "",
+                    "provider_state": row.get("provider_state") or "",
+                    "provider_zip": row.get("provider_zip") or "",
+                    "signer_name": row.get("signer_name") or "",
+                    "signer_title": row.get("signer_title") or "",
+                    "provider_npi": row.get("provider_npi") or "",
+                    "payer_address": row.get("payer_address") or "",
+                    "payer_city": row.get("payer_city") or "",
+                    "payer_state": row.get("payer_state") or "",
+                    "payer_zip": row.get("payer_zip") or "",
+                    "letter_date": row.get("letter_date") or "",
                 }
             )
         except Exception as e:  # noqa: BLE001

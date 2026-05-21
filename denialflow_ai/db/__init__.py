@@ -167,9 +167,49 @@ async def _migrate_claims_batch_unique(db: aiosqlite.Connection) -> None:
     await db.execute("CREATE INDEX IF NOT EXISTS idx_claims_status ON claims(status)")
 
 
+async def _migrate_appeals_ai_review(db: aiosqlite.Connection) -> None:
+    """Add Bedrock second-opinion columns to appeals."""
+    cur = await db.execute("PRAGMA table_info(appeals)")
+    cols = {row[1] for row in await cur.fetchall()}
+    if "ai_review_json" not in cols:
+        await db.execute("ALTER TABLE appeals ADD COLUMN ai_review_json TEXT")
+    if "ai_review_at" not in cols:
+        await db.execute("ALTER TABLE appeals ADD COLUMN ai_review_at TEXT")
+    if "ai_review_model" not in cols:
+        await db.execute("ALTER TABLE appeals ADD COLUMN ai_review_model TEXT")
+
+
+_CLAIMS_LETTERHEAD_COLUMNS = (
+    "provider_name",
+    "provider_address",
+    "provider_city",
+    "provider_state",
+    "provider_zip",
+    "signer_name",
+    "signer_title",
+    "provider_npi",
+    "payer_address",
+    "payer_city",
+    "payer_state",
+    "payer_zip",
+    "letter_date",
+)
+
+
+async def _migrate_claims_letterhead(db: aiosqlite.Connection) -> None:
+    """Add appeal letterhead / cadastro columns to claims."""
+    cur = await db.execute("PRAGMA table_info(claims)")
+    cols = {row[1] for row in await cur.fetchall()}
+    for name in _CLAIMS_LETTERHEAD_COLUMNS:
+        if name not in cols:
+            await db.execute(f"ALTER TABLE claims ADD COLUMN {name} TEXT")
+
+
 async def init_db(db_path: str) -> None:
     """Create tables if they do not exist."""
     async with aiosqlite.connect(db_path) as db:
         await db.executescript(SCHEMA)
         await _migrate_claims_batch_unique(db)
+        await _migrate_claims_letterhead(db)
+        await _migrate_appeals_ai_review(db)
         await db.commit()

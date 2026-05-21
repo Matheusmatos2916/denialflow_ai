@@ -22,6 +22,50 @@ PAYERS = [
     "Lakeside Medicare Advantage",
 ]
 
+PAYER_ADDRESSES: dict[str, dict[str, str]] = {
+    "Horizon National": {
+        "payer_address": "4500 Horizon Parkway",
+        "payer_city": "Chicago",
+        "payer_state": "IL",
+        "payer_zip": "60601",
+    },
+    "Apex Health Plan": {
+        "payer_address": "1200 Apex Center Drive",
+        "payer_city": "Dallas",
+        "payer_state": "TX",
+        "payer_zip": "75201",
+    },
+    "UnifiedCare": {
+        "payer_address": "800 UnifiedCare Plaza",
+        "payer_city": "Atlanta",
+        "payer_state": "GA",
+        "payer_zip": "30303",
+    },
+    "Meridian Select": {
+        "payer_address": "200 Meridian Way",
+        "payer_city": "Phoenix",
+        "payer_state": "AZ",
+        "payer_zip": "85004",
+    },
+    "Lakeside Medicare Advantage": {
+        "payer_address": "75 Lakeside Boulevard",
+        "payer_city": "Minneapolis",
+        "payer_state": "MN",
+        "payer_zip": "55401",
+    },
+}
+
+PROVIDER = {
+    "provider_name": "DenialFlow Medical Group",
+    "provider_address": "123 Main Street",
+    "provider_city": "Springfield",
+    "provider_state": "IL",
+    "provider_zip": "62701",
+    "signer_name": "Jane Doe",
+    "signer_title": "Director of Revenue Cycle",
+    "provider_npi": "1234567890",
+}
+
 SPECIALTIES = [
     "Orthopedic Surgery",
     "Emergency Medicine",
@@ -44,30 +88,42 @@ DENIAL_TEMPLATES = [
 CPT_POOL = ["99285", "73721", "78452", "45380", "27447", "92928", "J0897", "77067"]
 ICD_POOL = ["M17.11", "I25.10", "K63.5", "R07.89", "S72.001A", "Z87.891"]
 
+FIELDNAMES = [
+    "claim_id",
+    "payer",
+    "denial_code",
+    "denial_reason_text",
+    "billed_amount",
+    "allowed_amount",
+    "patient_balance",
+    "aging_days",
+    "specialty",
+    "cpt_codes",
+    "icd10_codes",
+    "service_date",
+    "remark_codes",
+    "provider_name",
+    "provider_address",
+    "provider_city",
+    "provider_state",
+    "provider_zip",
+    "signer_name",
+    "signer_title",
+    "provider_npi",
+    "payer_address",
+    "payer_city",
+    "payer_state",
+    "payer_zip",
+    "letter_date",
+]
+
 
 def main() -> None:
     random.seed(42)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     rows = 320
     with OUT.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(
-            f,
-            fieldnames=[
-                "claim_id",
-                "payer",
-                "denial_code",
-                "denial_reason_text",
-                "billed_amount",
-                "allowed_amount",
-                "patient_balance",
-                "aging_days",
-                "specialty",
-                "cpt_codes",
-                "icd10_codes",
-                "service_date",
-                "remark_codes",
-            ],
-        )
+        w = csv.DictWriter(f, fieldnames=FIELDNAMES)
         w.writeheader()
         for i in range(rows):
             payer = random.choice(PAYERS)
@@ -81,6 +137,7 @@ def main() -> None:
             icds = ",".join(random.sample(ICD_POOL, k=random.randint(1, 2)))
             dos = f"2025-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}"
             remark = random.choice(["", "MA15", "N382", "M86"])
+            addr = PAYER_ADDRESSES.get(payer, {})
             w.writerow(
                 {
                     "claim_id": f"CLM-DF-{2025000 + i}",
@@ -96,6 +153,9 @@ def main() -> None:
                     "icd10_codes": icds,
                     "service_date": dos,
                     "remark_codes": remark,
+                    "letter_date": "2026-05-20",
+                    **PROVIDER,
+                    **addr,
                 }
             )
     print(f"Wrote {rows} rows to {OUT}")

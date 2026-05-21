@@ -19,7 +19,7 @@ def api_base() -> str:
 @st.cache_data(ttl=10)
 def health(base_url: str) -> dict:
     try:
-        r = httpx.get(f"{base_url}/docs", timeout=3.0)
+        r = httpx.get(f"{base_url}/health", timeout=5.0)
         return {"ok": r.status_code < 500, "status": r.status_code}
     except Exception as e:  # noqa: BLE001
         return {"ok": False, "error": str(e)}

@@ -33,6 +33,9 @@ GET {{base}}/v1/claims/summary?limit=50
 GET {{base}}/v1/appeals?limit=20
 GET {{base}}/v1/appeals/REPLACE_APPEAL_ID
 
+### Bedrock second opinion (analyzes CrewAI/Groq draft; requires AWS + BEDROCK_MODEL_REVIEW)
+POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/ai-review
+
 POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/approve
 
 POST {{base}}/v1/appeals/REPLACE_APPEAL_ID/reject

@@ -44,6 +44,11 @@ def create_app() -> FastAPI:
     app.include_router(workflows.router, prefix="/v1")
     app.include_router(appeals.router, prefix="/v1")
     app.include_router(metrics.router, prefix="/v1")
+
+    @app.get("/health")
+    async def health() -> dict[str, str]:
+        return {"status": "ok"}
+
     return app
 
 

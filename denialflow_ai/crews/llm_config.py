@@ -29,6 +29,32 @@ def ensure_groq_env() -> None:
         os.environ.setdefault("GROQ_API_KEY", s.groq_api_key)
 
 
+def _strip_env_quotes(value: str) -> str:
+    v = value.strip()
+    if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":
+        return v[1:-1].strip()
+    return v
+
+
+def ensure_bedrock_env() -> None:
+    """Propagate AWS region and credentials for LiteLLM/CrewAI Bedrock (appeal review only)."""
+    s = get_settings()
+    region = (s.aws_region or "us-east-1").strip()
+    if region:
+        os.environ.setdefault("AWS_REGION", region)
+        os.environ.setdefault("AWS_REGION_NAME", region)
+        os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    access_key = _strip_env_quotes(s.aws_access_key_id)
+    if access_key:
+        os.environ.setdefault("AWS_ACCESS_KEY_ID", access_key)
+    secret_key = _strip_env_quotes(s.aws_secret_access_key)
+    if secret_key:
+        os.environ.setdefault("AWS_SECRET_ACCESS_KEY", secret_key)
+    session_token = _strip_env_quotes(s.aws_session_token)
+    if session_token:
+        os.environ.setdefault("AWS_SESSION_TOKEN", session_token)
+
+
 def _with_provider_prefix(provider: str, model_id: str) -> str:
     """CrewAI expects provider/model (e.g. groq/llama-3.3-70b-versatile)."""
     if "/" in model_id:
@@ -99,6 +125,23 @@ def is_groq_rate_limit_error(exc: BaseException) -> bool:
     if type(exc).__name__ == "RateLimitError":
         return True
     return "rate_limit_exceeded" in str(exc).lower()
+
+
+def is_bedrock_rate_limit_error(exc: BaseException) -> bool:
+    """Daily/token Bedrock quotas surfaced as litellm RateLimitError or BedrockException."""
+    msg = str(exc).lower()
+    if (
+        "too many tokens per day" in msg
+        or "too many tokens, please wait" in msg
+        or "throttlingexception" in msg
+        or "context window exceeded" in msg
+        or "bedrockexception" in msg
+        or ("bedrock" in msg and "rate" in msg)
+    ):
+        return True
+    if is_groq_rate_limit_error(exc) and "bedrock" in msg:
+        return True
+    return False
 
 
 def with_groq_70b_rate_limit_retry(model_id: str, fn: Callable[[], T]) -> T:
@@ -184,3 +227,12 @@ def build_llm(model: str | None = None, temperature: float = 0.2) -> LLM:
 
 def resolve_model_name(llm: Any) -> str:
     return str(getattr(llm, "model", None) or getattr(llm, "model_name", "llm"))
+
+
+def build_llm_bedrock(model: str | None = None, temperature: float = 0.1) -> LLM:
+    """Bedrock LLM for appeal second-opinion review only — not used by workflow crews."""
+    ensure_bedrock_env()
+    s = get_settings()
+    model_id = _with_provider_prefix("bedrock", model or s.bedrock_model_review)
+    max_tokens = max(1, s.bedrock_review_max_tokens)
+    return LLM(model=model_id, temperature=temperature, max_tokens=max_tokens)

@@ -55,6 +55,47 @@ class Settings(BaseSettings):
 
     log_json: bool = Field(default=False, alias="LOG_JSON")
 
+    aws_region: str = Field(default="us-east-1", alias="AWS_REGION")
+    aws_access_key_id: str = Field(default="", alias="AWS_ACCESS_KEY_ID")
+    aws_secret_access_key: str = Field(default="", alias="AWS_SECRET_ACCESS_KEY")
+    aws_session_token: str = Field(default="", alias="AWS_SESSION_TOKEN")
+    bedrock_model_review: str = Field(
+        default="anthropic.claude-3-5-sonnet-20241022-v2:0",
+        alias="BEDROCK_MODEL_REVIEW",
+    )
+    bedrock_review_enabled: bool = Field(default=True, alias="BEDROCK_REVIEW_ENABLED")
+    bedrock_review_max_tokens: int = Field(default=300, alias="BEDROCK_REVIEW_MAX_TOKENS")
+    bedrock_review_fallback_groq: bool = Field(
+        default=False,
+        alias="BEDROCK_REVIEW_FALLBACK_GROQ",
+    )
+    bedrock_review_use_crewai: bool = Field(
+        default=False,
+        alias="BEDROCK_REVIEW_USE_CREWAI",
+    )
+    bedrock_review_rag_refresh: bool = Field(
+        default=False,
+        alias="BEDROCK_REVIEW_RAG_REFRESH",
+    )
+    bedrock_review_rag_top_k: int = Field(default=6, alias="BEDROCK_REVIEW_RAG_TOP_K")
+    bedrock_review_rag_snippet_chars: int = Field(
+        default=800,
+        alias="BEDROCK_REVIEW_RAG_SNIPPET_CHARS",
+    )
+
+    gmail_notify_enabled: bool = Field(default=False, alias="GMAIL_NOTIFY_ENABLED")
+    gmail_service_account_file: Path = Field(
+        default=Path("gcp/key_gmail.json"),
+        alias="GMAIL_SERVICE_ACCOUNT_FILE",
+    )
+    gmail_oauth_token_file: Path = Field(
+        default=Path("gcp/gmail_token.json"),
+        alias="GMAIL_OAUTH_TOKEN_FILE",
+    )
+    gmail_impersonate_user: str = Field(default="", alias="GMAIL_IMPERSONATE_USER")
+    gmail_to: str = Field(default="", alias="GMAIL_TO")
+    gmail_fail_on_error: bool = Field(default=False, alias="GMAIL_FAIL_ON_ERROR")
+
 
 @lru_cache
 def get_settings() -> Settings:

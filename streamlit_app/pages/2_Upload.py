@@ -17,6 +17,14 @@ st.title("Claims upload")
 f = st.file_uploader("Upload denied claims CSV", type=["csv"])
 if f is None:
     st.info("Upload a CSV with at least a `claim_id` column. See `data/sample_denials.csv`.")
+    with st.expander("Colunas cadastrais (recomendadas para appeals)"):
+        st.markdown(
+            "Opcionais no schema, mas preencha para cartas sem placeholders `[Your Company Name]`:\n\n"
+            "- **Prestador:** `provider_name`, `provider_address`, `provider_city`, "
+            "`provider_state`, `provider_zip`, `signer_name`, `signer_title`, `provider_npi`\n"
+            "- **Payer:** `payer` (nome) + `payer_address`, `payer_city`, `payer_state`, `payer_zip`\n"
+            "- **Carta:** `letter_date` (se vazio, usa a data do workflow)"
+        )
     st.stop()
 
 raw = f.getvalue()

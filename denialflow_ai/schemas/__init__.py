@@ -58,11 +58,44 @@ class ClaimRow(BaseModel):
     icd10_codes: str = Field(default="", max_length=512)
     service_date: str = Field(default="", max_length=32)
     remark_codes: str = Field(default="", max_length=256)
+    # Letterhead / cadastro (optional; recommended for appeal drafts)
+    provider_name: str = Field(default="", max_length=256)
+    provider_address: str = Field(default="", max_length=512)
+    provider_city: str = Field(default="", max_length=128)
+    provider_state: str = Field(default="", max_length=32)
+    provider_zip: str = Field(default="", max_length=16)
+    signer_name: str = Field(default="", max_length=128)
+    signer_title: str = Field(default="", max_length=128)
+    provider_npi: str = Field(default="", max_length=32)
+    payer_address: str = Field(default="", max_length=512)
+    payer_city: str = Field(default="", max_length=128)
+    payer_state: str = Field(default="", max_length=32)
+    payer_zip: str = Field(default="", max_length=16)
+    letter_date: str = Field(default="", max_length=32)
 
     @field_validator("claim_id")
     @classmethod
     def strip_claim(cls, v: str) -> str:
         return v.strip()
+
+
+class AppealLetterContext(BaseModel):
+    """Provider/payer letterhead fields passed to appeal drafting."""
+
+    provider_name: str = ""
+    provider_address: str = ""
+    provider_city: str = ""
+    provider_state: str = ""
+    provider_zip: str = ""
+    signer_name: str = ""
+    signer_title: str = ""
+    provider_npi: str = ""
+    payer_name: str = ""
+    payer_address: str = ""
+    payer_city: str = ""
+    payer_state: str = ""
+    payer_zip: str = ""
+    letter_date: str = ""
 
 
 class ClassificationResult(BaseModel):
@@ -136,6 +169,25 @@ class AppealRejectRequest(BaseModel):
     reason: str = Field(min_length=3, max_length=2000)
 
 
+ReviewRecommendedAction = Literal["approve", "edit", "reject"]
+
+
+class AppealAIReview(BaseModel):
+    """Structured second opinion from Bedrock on a CrewAI/Groq appeal draft."""
+
+    overall_score: float = Field(ge=0.0, le=1.0)
+    ready_to_submit: bool
+    issues: list[str] = Field(default_factory=list)
+    missing_elements: list[str] = Field(default_factory=list)
+    citation_check: str = Field(min_length=1, max_length=4000)
+    suggested_edits: list[str] = Field(default_factory=list)
+    recommended_action: ReviewRecommendedAction
+    summary: str = Field(min_length=10, max_length=8000)
+    analyzed_crewai_model: str = Field(default="", max_length=256)
+    agrees_with_crewai_confidence: bool | None = None
+    model_used: str = Field(default="", max_length=256)
+
+
 class DashboardMetrics(BaseModel):
     total_claims: int
     denial_rate_proxy: float
@@ -174,6 +226,8 @@ class AppealDetail(BaseModel):
     model_used: str
     created_at: str
     updated_at: str
+    ai_review: AppealAIReview | None = None
+    ai_review_at: str | None = None
 
 
 def utc_now_iso() -> str:

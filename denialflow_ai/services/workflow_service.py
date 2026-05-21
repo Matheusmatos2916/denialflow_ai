@@ -17,6 +17,12 @@ from denialflow_ai.repositories import (
     ClaimRepository,
     WorkflowRepository,
 )
+from denialflow_ai.services.appeal_letter_context import (
+    build_letter_context,
+    format_letter_context_block,
+    has_bracket_placeholders,
+    sanitize_appeal_body,
+)
 from denialflow_ai.schemas import ClaimStatus, WorkflowRunStatus
 
 logger = get_logger(__name__)
@@ -139,13 +145,23 @@ async def execute_workflow_run(*, run_id: str, batch_id: str, max_claims: int) -
                 f"P(reversal)={pri.reversal_probability:.2f}; action={pri.recommended_action[:300]}"
             )
 
+            letter_block = format_letter_context_block(build_letter_context(row))
+
             await wf.add_event(run_id, "appeal", f"Drafting appeal for {claim_key}", payload={})
             appeal_text, appeal_conf, appeal_model = await asyncio.to_thread(
                 run_research_and_appeal,
                 payload,
                 cls_summary,
                 pri_summary,
+                letter_block,
             )
+            appeal_text = sanitize_appeal_body(appeal_text)
+            if has_bracket_placeholders(appeal_text):
+                logger.warning(
+                    "appeal_bracket_placeholders",
+                    claim_id=claim_key,
+                    model=appeal_model,
+                )
             budget_used += _rough_tokens(appeal_text)
 
             appeal_id = await appeals_repo.create_draft(

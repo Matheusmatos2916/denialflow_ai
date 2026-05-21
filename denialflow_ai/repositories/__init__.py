@@ -43,8 +43,15 @@ class ClaimRepository:
                     id, batch_id, claim_id, payer, denial_code, denial_reason_text,
                     billed_amount, allowed_amount, patient_balance, aging_days,
                     specialty, cpt_codes, icd10_codes, service_date, remark_codes,
+                    provider_name, provider_address, provider_city, provider_state,
+                    provider_zip, signer_name, signer_title, provider_npi,
+                    payer_address, payer_city, payer_state, payer_zip, letter_date,
                     raw_json, status, created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+                    ?, ?, ?, ?
+                )
                 """,
                 (
                     cid,
@@ -62,6 +69,19 @@ class ClaimRepository:
                     r.get("icd10_codes"),
                     r.get("service_date"),
                     r.get("remark_codes"),
+                    r.get("provider_name"),
+                    r.get("provider_address"),
+                    r.get("provider_city"),
+                    r.get("provider_state"),
+                    r.get("provider_zip"),
+                    r.get("signer_name"),
+                    r.get("signer_title"),
+                    r.get("provider_npi"),
+                    r.get("payer_address"),
+                    r.get("payer_city"),
+                    r.get("payer_state"),
+                    r.get("payer_zip"),
+                    r.get("letter_date"),
                     json.dumps(r.get("raw") or r),
                     "pending",
                     now,
@@ -380,6 +400,23 @@ class AppealRepository:
             WHERE id = ?
             """,
             (final_text, now, appeal_id),
+        )
+        await self._conn.commit()
+
+    async def save_ai_review(
+        self,
+        appeal_id: str,
+        review_json: str,
+        model_used: str,
+    ) -> None:
+        now = utc_now_iso()
+        await self._conn.execute(
+            """
+            UPDATE appeals
+            SET ai_review_json = ?, ai_review_at = ?, ai_review_model = ?, updated_at = ?
+            WHERE id = ?
+            """,
+            (review_json, now, model_used, now, appeal_id),
         )
         await self._conn.commit()
 

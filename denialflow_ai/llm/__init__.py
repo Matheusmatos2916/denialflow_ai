@@ -43,6 +43,108 @@ def _extract_json(text: str) -> dict[str, Any]:
     return json.loads(text[start : end + 1])
 
 
+_PRIORITIZATION_REQUIRED_KEYS = frozenset({
+    "priority_score",
+    "estimated_recoverable_revenue",
+    "urgency",
+    "reversal_probability",
+    "recommended_action",
+})
+
+_PRIORITIZATION_KEY_ALIASES = frozenset({
+    "priority",
+    "score",
+    "priorityScore",
+    "recoverable_revenue",
+    "estimated_revenue",
+    "recoverable",
+    "estimatedRecoverableRevenue",
+    "urgency_score",
+    "urgencyScore",
+    "reversal_prob",
+    "probability_of_reversal",
+    "reversalProbability",
+    "recommendation",
+    "action",
+    "next_action",
+    "recommendedAction",
+})
+
+
+def _iter_json_objects(text: str) -> list[dict[str, Any]]:
+    """Yield all top-level JSON object dicts found in text (brace-balanced scan)."""
+    objects: list[dict[str, Any]] = []
+    i = 0
+    while i < len(text):
+        start = text.find("{", i)
+        if start == -1:
+            break
+        depth = 0
+        in_string = False
+        escape = False
+        end = -1
+        for j in range(start, len(text)):
+            ch = text[j]
+            if escape:
+                escape = False
+                continue
+            if ch == "\\" and in_string:
+                escape = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    end = j
+                    break
+        if end == -1:
+            break
+        try:
+            parsed = json.loads(text[start : end + 1])
+            if isinstance(parsed, dict):
+                objects.append(parsed)
+        except json.JSONDecodeError:
+            pass
+        i = end + 1
+    return objects
+
+
+def _prioritization_key_score(data: dict[str, Any]) -> int:
+    keys = set(data.keys())
+    canonical = len(keys & _PRIORITIZATION_REQUIRED_KEYS)
+    alias = len(keys & _PRIORITIZATION_KEY_ALIASES)
+    return canonical * 2 + alias
+
+
+def _extract_prioritization_json(text: str) -> dict[str, Any]:
+    """Pick the JSON object that best matches prioritization schema keys."""
+    text = text.strip()
+    fence = re.search(r"```(?:json)?\s*([\s\S]*?)```", text, re.IGNORECASE)
+    if fence:
+        text = fence.group(1).strip()
+
+    candidates: list[dict[str, Any]] = []
+    try:
+        candidates.append(_extract_json(text))
+    except (ValueError, json.JSONDecodeError):
+        pass
+    candidates.extend(_iter_json_objects(text))
+
+    if not candidates:
+        return {}
+
+    best = max(candidates, key=_prioritization_key_score)
+    if _prioritization_key_score(best) > 0:
+        return best
+    return candidates[-1] if candidates else {}
+
+
 class GroqLangChainClient:
     """Async JSON/text chat via langchain_groq.ChatGroq."""
 
