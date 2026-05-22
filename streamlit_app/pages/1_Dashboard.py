@@ -1,23 +1,18 @@
 from __future__ import annotations
 
-import os
-
-import httpx
 import pandas as pd
 import streamlit as st
 
+from api_client import api_request, render_auth_sidebar
+
 st.set_page_config(page_title="Dashboard — DenialFlow AI", layout="wide")
-
-
-def base() -> str:
-    return os.getenv("DENIALFLOW_API_BASE", "http://127.0.0.1:8000").rstrip("/")
-
+render_auth_sidebar()
 
 st.title("Operational dashboard")
 st.caption("Aggregated metrics from the DenialFlow API + lightweight ops counters")
 
 try:
-    r = httpx.get(f"{base()}/v1/metrics/dashboard", timeout=10.0)
+    r = api_request("GET", "/v1/metrics/dashboard", timeout=10.0)
     r.raise_for_status()
     m = r.json()
 except Exception as e:  # noqa: BLE001
@@ -43,7 +38,7 @@ else:
     st.info("No prioritization rows yet — upload claims and run a workflow.")
 
 try:
-    ops = httpx.get(f"{base()}/v1/metrics/ops", timeout=5.0).json()
+    ops = api_request("GET", "/v1/metrics/ops", timeout=5.0).json()
     with st.expander("Ops snapshot (process-local)"):
         st.json(ops)
 except Exception:

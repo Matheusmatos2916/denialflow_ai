@@ -5,7 +5,7 @@ import json
 
 from fastapi import APIRouter, HTTPException
 
-from denialflow_ai.api.deps import DbConn
+from denialflow_ai.api.deps import CurrentPrincipal, DbConn
 from denialflow_ai.core.config import get_settings
 from denialflow_ai.core.logging import get_logger
 from denialflow_ai.crews.appeal import strip_confidence_line
@@ -277,17 +277,18 @@ async def appeal_ai_review(appeal_id: str, conn: DbConn) -> AppealAIReview:
 
 
 @router.post("/{appeal_id}/approve")
-async def approve_appeal(appeal_id: str, conn: DbConn):
+async def approve_appeal(appeal_id: str, conn: DbConn, principal: CurrentPrincipal):
     appeals = AppealRepository(conn)
     row = await appeals.get(appeal_id)
     if not row:
         raise HTTPException(status_code=404, detail="appeal_not_found")
     await appeals.approve(appeal_id)
     await ClaimRepository(conn).update_status(row["claim_internal_id"], "approved")
+    actor = principal.get("sub", "human")
     await AuditRepository(conn).append(
         "appeal",
         appeal_id,
-        "human",
+        actor,
         "approve",
         {"claim_internal_id": row["claim_internal_id"]},
     )
@@ -306,17 +307,23 @@ async def approve_appeal(appeal_id: str, conn: DbConn):
 
 
 @router.post("/{appeal_id}/reject")
-async def reject_appeal(appeal_id: str, body: AppealRejectRequest, conn: DbConn):
+async def reject_appeal(
+    appeal_id: str,
+    body: AppealRejectRequest,
+    conn: DbConn,
+    principal: CurrentPrincipal,
+):
     appeals = AppealRepository(conn)
     row = await appeals.get(appeal_id)
     if not row:
         raise HTTPException(status_code=404, detail="appeal_not_found")
     await appeals.reject(appeal_id)
     await ClaimRepository(conn).update_status(row["claim_internal_id"], "rejected")
+    actor = principal.get("sub", "human")
     await AuditRepository(conn).append(
         "appeal",
         appeal_id,
-        "human",
+        actor,
         "reject",
         {"reason": body.reason},
     )
@@ -324,17 +331,23 @@ async def reject_appeal(appeal_id: str, body: AppealRejectRequest, conn: DbConn)
 
 
 @router.post("/{appeal_id}/edit")
-async def edit_appeal(appeal_id: str, body: AppealReviewEditRequest, conn: DbConn):
+async def edit_appeal(
+    appeal_id: str,
+    body: AppealReviewEditRequest,
+    conn: DbConn,
+    principal: CurrentPrincipal,
+):
     appeals = AppealRepository(conn)
     row = await appeals.get(appeal_id)
     if not row:
         raise HTTPException(status_code=404, detail="appeal_not_found")
     await appeals.edit(appeal_id, body.final_text)
     await ClaimRepository(conn).update_status(row["claim_internal_id"], "edited")
+    actor = principal.get("sub", "human")
     await AuditRepository(conn).append(
         "appeal",
         appeal_id,
-        "human",
+        actor,
         "edit",
         {"reason": body.reason, "length": len(body.final_text)},
     )

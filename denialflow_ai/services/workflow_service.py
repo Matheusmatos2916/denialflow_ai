@@ -5,6 +5,11 @@ import json
 from typing import Any
 
 from denialflow_ai.core.logging import get_logger
+from denialflow_ai.observability.agentops_client import (
+    workflow_tags,
+    agentops_trace_context,
+    bind_workflow_context,
+)
 from denialflow_ai.crews.appeal import run_research_and_appeal
 from denialflow_ai.crews.classification import run_denial_classification
 from denialflow_ai.crews.prioritization import run_financial_prioritization
@@ -52,6 +57,17 @@ def _rough_tokens(text: str) -> int:
 
 
 async def execute_workflow_run(*, run_id: str, batch_id: str, max_claims: int) -> None:
+    tags = workflow_tags(run_id=run_id, batch_id=batch_id, phase="workflow")
+    with agentops_trace_context(trace_name=f"workflow-{run_id}", tags=tags):
+        await _execute_workflow_run_body(
+            run_id=run_id,
+            batch_id=batch_id,
+            max_claims=max_claims,
+        )
+
+
+async def _execute_workflow_run_body(*, run_id: str, batch_id: str, max_claims: int) -> None:
+    bind_workflow_context(run_id=run_id, batch_id=batch_id, phase="workflow")
     conn = await get_connection()
     wf = WorkflowRepository(conn)
     claims_repo = ClaimRepository(conn)
@@ -78,6 +94,12 @@ async def execute_workflow_run(*, run_id: str, batch_id: str, max_claims: int) -
         for row in rows:
             cid = row["id"]
             claim_key = row["claim_id"]
+            bind_workflow_context(
+                run_id=run_id,
+                batch_id=batch_id,
+                claim_id=claim_key,
+                phase="claim",
+            )
             payload = _claim_text(row)
             budget_used += _rough_tokens(payload)
 

@@ -8,6 +8,7 @@ from typing import Any, TypeVar
 from crewai import Crew, LLM
 
 from denialflow_ai.core.config import get_settings
+from denialflow_ai.observability.agentops_client import crew_kickoff_context
 
 T = TypeVar("T")
 
@@ -188,6 +189,7 @@ async def with_groq_70b_rate_limit_retry_async(
 def kickoff_crew_with_model_fallback(
     *,
     build: Callable[[str | None], tuple[Crew, LLM]],
+    crew_name: str = "crew",
 ) -> tuple[Any, str]:
     """Run crew.kickoff(), trying each GROQ_MODEL_* when provider is groq."""
     s = get_settings()
@@ -195,14 +197,18 @@ def kickoff_crew_with_model_fallback(
 
     if provider != "groq":
         crew, llm = build(None)
-        return crew.kickoff(), resolve_model_name(llm)
+        model_name = resolve_model_name(llm)
+        with crew_kickoff_context(crew_name=crew_name, model=model_name):
+            return crew.kickoff(), model_name
 
     last_err: Exception | None = None
     for model in groq_model_chain():
         try:
             crew, llm = build(model)
-            out = with_groq_70b_rate_limit_retry(model, crew.kickoff)
-            return out, resolve_model_name(llm)
+            model_name = resolve_model_name(llm)
+            with crew_kickoff_context(crew_name=crew_name, model=model_name):
+                out = with_groq_70b_rate_limit_retry(model, crew.kickoff)
+            return out, model_name
         except Exception as e:  # noqa: BLE001 — try next model in chain
             last_err = e
             continue

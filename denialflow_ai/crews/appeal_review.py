@@ -5,6 +5,11 @@ import re
 from typing import Any
 
 from denialflow_ai.core.config import get_settings
+from denialflow_ai.observability.agentops_client import (
+    workflow_tags,
+    agentops_trace_context,
+    bedrock_review_context,
+)
 from denialflow_ai.crews.llm_config import (
     build_llm_bedrock,
     ensure_bedrock_env,
@@ -255,26 +260,31 @@ def run_appeal_second_opinion(detail: AppealDetail, letter_context: str = "") ->
     Bedrock by default; Groq-only when BEDROCK_REVIEW_FALLBACK_GROQ=true (skips Bedrock).
     LiteLLM direct call by default; optional CrewAI via BEDROCK_REVIEW_USE_CREWAI.
     """
-    s = get_settings()
-    if not s.bedrock_review_enabled:
-        raise RuntimeError("bedrock_review_disabled")
+    appeal_id = getattr(detail, "appeal_id", None) or getattr(detail, "id", None)
+    appeal_key = str(appeal_id) if appeal_id else None
+    tags = workflow_tags(claim_id=appeal_key, phase="bedrock_review", extra=["bedrock_review"])
+    with agentops_trace_context(trace_name="appeal-ai-review", tags=tags):
+        with bedrock_review_context(appeal_id=appeal_key):
+            s = get_settings()
+            if not s.bedrock_review_enabled:
+                raise RuntimeError("bedrock_review_disabled")
 
-    if not (detail.draft_text or "").strip():
-        raise ValueError("draft_text_empty")
+            if not (detail.draft_text or "").strip():
+                raise ValueError("draft_text_empty")
 
-    if s.bedrock_review_fallback_groq:
-        if not s.groq_api_key:
-            raise RuntimeError("groq_api_key_missing")
-        return _groq_litellm_review_with_fallback(detail, letter_context=letter_context)
+            if s.bedrock_review_fallback_groq:
+                if not s.groq_api_key:
+                    raise RuntimeError("groq_api_key_missing")
+                return _groq_litellm_review_with_fallback(detail, letter_context=letter_context)
 
-    ensure_bedrock_env()
-    bedrock_model = resolve_model_name(build_llm_bedrock())
+            ensure_bedrock_env()
+            bedrock_model = resolve_model_name(build_llm_bedrock())
 
-    try:
-        if s.bedrock_review_use_crewai:
-            return _bedrock_crewai_review(detail, bedrock_model, letter_context=letter_context)
-        return _bedrock_litellm_review(detail, bedrock_model, letter_context=letter_context)
-    except Exception as err:
-        if is_bedrock_rate_limit_error(err):
-            return _on_bedrock_throttle(detail, letter_context=letter_context)
-        raise
+            try:
+                if s.bedrock_review_use_crewai:
+                    return _bedrock_crewai_review(detail, bedrock_model, letter_context=letter_context)
+                return _bedrock_litellm_review(detail, bedrock_model, letter_context=letter_context)
+            except Exception as err:
+                if is_bedrock_rate_limit_error(err):
+                    return _on_bedrock_throttle(detail, letter_context=letter_context)
+                raise

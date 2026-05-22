@@ -96,6 +96,34 @@ class Settings(BaseSettings):
     gmail_to: str = Field(default="", alias="GMAIL_TO")
     gmail_fail_on_error: bool = Field(default=False, alias="GMAIL_FAIL_ON_ERROR")
 
+    jwt_secret: str = Field(default="", alias="JWT_SECRET")
+    jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
+    api_access_token: str = Field(default="", alias="API_ACCESS_TOKEN")
+    jwt_auth_enabled: bool = Field(default=True, alias="JWT_AUTH_ENABLED")
+
+    agentops_api_key: str = Field(default="", alias="AGENTOPS_API_KEY")
+    agentops_enabled: bool = Field(default=True, alias="AGENTOPS_ENABLED")
+    agentops_project_tags: str = Field(default="denialflow,poc", alias="AGENTOPS_PROJECT_TAGS")
+
+    @property
+    def agentops_tags_list(self) -> list[str]:
+        return [t.strip() for t in self.agentops_project_tags.split(",") if t.strip()]
+
+    @property
+    def agentops_should_init(self) -> bool:
+        return self.agentops_enabled and bool(self.agentops_api_key.strip())
+
+    def validate_auth_config(self) -> None:
+        """Fail fast when auth is enabled but no token is configured."""
+        if not self.jwt_auth_enabled:
+            return
+        token = self.api_access_token.strip()
+        secret = self.jwt_secret.strip()
+        if not token and not secret:
+            raise ValueError(
+                "JWT_AUTH_ENABLED=true requires API_ACCESS_TOKEN and/or JWT_SECRET in .env"
+            )
+
 
 @lru_cache
 def get_settings() -> Settings:

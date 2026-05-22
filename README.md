@@ -42,6 +42,20 @@ python -m pip install -r requirements.txt
 
 Copy `.env.example` → `.env` and set `OPENAI_API_KEY`.
 
+**API authentication** (static Bearer token on all `/v1/*` routes; `/health` stays public):
+
+```bash
+# .env
+JWT_AUTH_ENABLED=true
+JWT_SECRET=your-long-random-secret
+python scripts/generate_api_token.py
+# Paste the printed API_ACCESS_TOKEN into .env (Streamlit reads it automatically)
+```
+
+For local dev only, set `JWT_AUTH_ENABLED=false` to disable auth.
+
+**AgentOps** (optional LLM/agent tracing): set `AGENTOPS_API_KEY` from [AgentOps](https://app.agentops.ai/settings/projects). Leave empty to skip initialization. The API calls `agentops.init()` once at startup (CrewAI is auto-instrumented per [the CrewAI integration](https://docs.agentops.ai/v2/integrations/crewai)); each workflow run and Bedrock AI review opens its own session and ends it when finished, so Session Replay links work after the run completes—not the placeholder `default` trace printed at server startup. On Windows, if you see `UnicodeEncodeError` from emoji in AgentOps logs, restart the API after pulling latest code (stdout is forced to UTF-8) or set `PYTHONUTF8=1`.
+
 ### 3) Generate demo CSV + seed the vector store
 
 ```bash
@@ -62,16 +76,18 @@ python -m uvicorn denialflow_ai.api.app:app --reload --host 127.0.0.1 --port 800
 Terminal B:
 
 ```bash
-set DENIALFLOW_API_BASE=http://127.0.0.1:8000
 streamlit run streamlit_app/Home.py
 ```
 
-Linux/macOS:
+Run from the repo root so `.env` is picked up (`API_ACCESS_TOKEN`, `DENIALFLOW_API_BASE`). Override only if needed:
 
 ```bash
-export DENIALFLOW_API_BASE=http://127.0.0.1:8000
+set DENIALFLOW_API_BASE=http://127.0.0.1:8000
+set API_ACCESS_TOKEN=your-token-from-generate_api_token
 streamlit run streamlit_app/Home.py
 ```
+
+Linux/macOS: use `export` instead of `set`.
 
 Open the Streamlit URL, then use **Upload → Workflow → Claims analysis → Appeal review**.
 

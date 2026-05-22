@@ -139,7 +139,7 @@ def run_research_and_appeal(
         return crew, llm
 
     try:
-        out, model_label = kickoff_crew_with_model_fallback(build=_build_crew)
+        out, model_label = kickoff_crew_with_model_fallback(build=_build_crew, crew_name="appeal")
         text = getattr(out, "raw", None) or str(out)
         appeal = str(text)
     except Exception:

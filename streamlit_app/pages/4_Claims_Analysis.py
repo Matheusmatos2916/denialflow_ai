@@ -1,17 +1,12 @@
 from __future__ import annotations
 
-import os
-
-import httpx
 import pandas as pd
 import streamlit as st
 
+from api_client import api_request, render_auth_sidebar
+
 st.set_page_config(page_title="Claims analysis — DenialFlow AI", layout="wide")
-
-
-def base() -> str:
-    return os.getenv("DENIALFLOW_API_BASE", "http://127.0.0.1:8000").rstrip("/")
-
+render_auth_sidebar()
 
 st.title("Claims analysis")
 status = st.selectbox(
@@ -21,11 +16,13 @@ status = st.selectbox(
 
 try:
     if status == "(summary)":
-        r = httpx.get(f"{base()}/v1/claims/summary", params={"limit": 500}, timeout=30.0)
+        r = api_request("GET", "/v1/claims/summary", params={"limit": 500}, timeout=30.0)
         r.raise_for_status()
         rows = r.json().get("items", [])
     else:
-        r = httpx.get(f"{base()}/v1/claims", params={"limit": 500, "status": status}, timeout=30.0)
+        r = api_request(
+            "GET", "/v1/claims", params={"limit": 500, "status": status}, timeout=30.0
+        )
         r.raise_for_status()
         raw_rows = r.json().get("items", [])
         rows = [

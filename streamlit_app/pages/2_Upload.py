@@ -1,29 +1,24 @@
 from __future__ import annotations
 
-import os
-
-import httpx
 import pandas as pd
 import streamlit as st
 
+from api_client import api_request, render_auth_sidebar
+
 st.set_page_config(page_title="Upload — DenialFlow AI", layout="wide")
-
-
-def base() -> str:
-    return os.getenv("DENIALFLOW_API_BASE", "http://127.0.0.1:8000").rstrip("/")
-
+render_auth_sidebar()
 
 st.title("Claims upload")
 f = st.file_uploader("Upload denied claims CSV", type=["csv"])
 if f is None:
     st.info("Upload a CSV with at least a `claim_id` column. See `data/sample_denials.csv`.")
-    with st.expander("Colunas cadastrais (recomendadas para appeals)"):
+    with st.expander("Registration columns (recommended for appeals)"):
         st.markdown(
-            "Opcionais no schema, mas preencha para cartas sem placeholders `[Your Company Name]`:\n\n"
-            "- **Prestador:** `provider_name`, `provider_address`, `provider_city`, "
+            "Optional in the schema, but fill in for letters without `[Your Company Name]` placeholders:\n\n"
+            "- **Provider:** `provider_name`, `provider_address`, `provider_city`, "
             "`provider_state`, `provider_zip`, `signer_name`, `signer_title`, `provider_npi`\n"
-            "- **Payer:** `payer` (nome) + `payer_address`, `payer_city`, `payer_state`, `payer_zip`\n"
-            "- **Carta:** `letter_date` (se vazio, usa a data do workflow)"
+            "- **Payer:** `payer` (name) + `payer_address`, `payer_city`, `payer_state`, `payer_zip`\n"
+            "- **Letter:** `letter_date` (if empty, uses the workflow date)"
         )
     st.stop()
 
@@ -35,7 +30,7 @@ st.code("\n".join(preview_lines), language="text")
 if st.button("Validate + ingest", type="primary"):
     files = {"file": (f.name, raw, "text/csv")}
     try:
-        r = httpx.post(f"{base()}/v1/claims/upload", files=files, timeout=60.0)
+        r = api_request("POST", "/v1/claims/upload", files=files, timeout=60.0)
         r.raise_for_status()
         resp = r.json()
     except Exception as e:  # noqa: BLE001
@@ -56,8 +51,9 @@ if bid:
     max_claims = st.slider("Max claims to process", 1, 50, 5)
     if st.button("Start workflow run", type="secondary"):
         try:
-            wr = httpx.post(
-                f"{base()}/v1/workflows/run",
+            wr = api_request(
+                "POST",
+                "/v1/workflows/run",
                 json={"batch_id": bid, "max_claims": max_claims},
                 timeout=30.0,
             )

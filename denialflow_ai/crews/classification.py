@@ -63,7 +63,9 @@ def run_denial_classification(claim_payload: str) -> tuple[ClassificationResult,
         return crew, llm
 
     try:
-        out, model_label = kickoff_crew_with_model_fallback(build=_build_crew)
+        out, model_label = kickoff_crew_with_model_fallback(
+            build=_build_crew, crew_name="classification"
+        )
         raw = getattr(out, "raw", None) or str(out)
         result = _parse_classification(str(raw))
         cache.set(claim_payload, result.model_dump())

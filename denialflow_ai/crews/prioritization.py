@@ -285,7 +285,9 @@ def run_financial_prioritization(
         return crew, llm
 
     try:
-        out, model_label = kickoff_crew_with_model_fallback(build=_build_crew)
+        out, model_label = kickoff_crew_with_model_fallback(
+            build=_build_crew, crew_name="prioritization"
+        )
         structured = _crew_prioritization_result(out)
         if structured is not None:
             return structured, model_label

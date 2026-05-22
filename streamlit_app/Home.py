@@ -5,15 +5,13 @@ import os
 import httpx
 import streamlit as st
 
+from api_client import api_base, render_auth_sidebar
+
 st.set_page_config(
     page_title="DenialFlow AI",
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-
-def api_base() -> str:
-    return os.getenv("DENIALFLOW_API_BASE", "http://127.0.0.1:8000").rstrip("/")
 
 
 @st.cache_data(ttl=10)
@@ -33,6 +31,7 @@ with st.sidebar:
     base = st.text_input("API base URL", value=api_base(), key="api_base_input")
     if base:
         os.environ["DENIALFLOW_API_BASE"] = base.rstrip("/")
+    render_auth_sidebar()
     h = health(os.getenv("DENIALFLOW_API_BASE", base).rstrip("/"))
     if h.get("ok"):
         st.success("API reachable")
