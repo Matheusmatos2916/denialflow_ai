@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import secrets
+import hashlib
+import hmac
+import base64
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
@@ -8,6 +11,34 @@ import jwt
 from fastapi import HTTPException, status
 
 from denialflow_ai.core.config import get_settings
+
+PASSWORD_ITERATIONS = 310_000
+
+
+def hash_password(password: str) -> str:
+    salt = secrets.token_bytes(16)
+    digest = hashlib.pbkdf2_hmac(
+        "sha256", password.encode("utf-8"), salt, PASSWORD_ITERATIONS
+    )
+    return f"pbkdf2_sha256${PASSWORD_ITERATIONS}${base64.urlsafe_b64encode(salt).decode()}${base64.urlsafe_b64encode(digest).decode()}"
+
+
+def verify_password(password: str, encoded: str) -> bool:
+    try:
+        algorithm, iterations, salt, expected = encoded.split("$", 3)
+        if algorithm != "pbkdf2_sha256":
+            return False
+        actual = hashlib.pbkdf2_hmac(
+            "sha256",
+            password.encode("utf-8"),
+            base64.urlsafe_b64decode(salt.encode()),
+            int(iterations),
+        )
+        return hmac.compare_digest(
+            actual, base64.urlsafe_b64decode(expected.encode())
+        )
+    except (ValueError, TypeError):
+        return False
 
 
 def _looks_like_jwt(token: str) -> bool:

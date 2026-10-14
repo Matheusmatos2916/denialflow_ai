@@ -8,16 +8,16 @@ from denialflow_ai.core.config import get_settings
 from denialflow_ai.observability.agentops_client import (
     workflow_tags,
     agentops_trace_context,
-    bedrock_review_context,
+    # bedrock_review_context,  # Bedrock desativado — 2ª opinião só via Groq
 )
 from denialflow_ai.crews.llm_config import (
-    build_llm_bedrock,
-    ensure_bedrock_env,
+    # build_llm_bedrock,
+    # ensure_bedrock_env,
     ensure_groq_env,
     groq_model_chain,
-    is_bedrock_rate_limit_error,
+    # is_bedrock_rate_limit_error,
     is_groq_rate_limit_error,
-    resolve_model_name,
+    # resolve_model_name,
     with_groq_70b_rate_limit_retry,
 )
 from denialflow_ai.rag.sync_search import hits_to_prompt_block, retrieve_sync
@@ -130,7 +130,7 @@ def _groq_litellm_review(
     ensure_groq_env()
     user = _build_review_payload(detail, letter_context)
     model = groq_model if "/" in groq_model else f"groq/{groq_model}"
-    reviewer_label = f"groq-fallback:{model}"
+    reviewer_label = f"groq:{model}"
     max_tokens = max(1, get_settings().bedrock_review_max_tokens)
 
     def _call() -> AppealAIReview:
@@ -175,116 +175,39 @@ def _groq_litellm_review_with_fallback(
     raise RuntimeError("groq_review_no_models_configured")
 
 
-def _bedrock_litellm_review(
-    detail: AppealDetail,
-    bedrock_model: str,
-    *,
-    letter_context: str = "",
-) -> AppealAIReview:
-    import litellm
-
-    ensure_bedrock_env()
-    user = _build_review_payload(detail, letter_context)
-    max_tokens = max(1, get_settings().bedrock_review_max_tokens)
-    resp = litellm.completion(
-        model=bedrock_model,
-        messages=[
-            {"role": "system", "content": _REVIEW_SYSTEM_PROMPT},
-            {"role": "user", "content": user},
-        ],
-        temperature=0.1,
-        max_tokens=max_tokens,
-    )
-    content = resp.choices[0].message.content
-    raw = content if isinstance(content, str) else str(content)
-    review = _parse_ai_review(
-        raw,
-        crewai_model=detail.model_used,
-        reviewer_model=bedrock_model,
-    )
-    return _finalize_review(review, crewai_model=detail.model_used, reviewer_model=bedrock_model)
-
-
-def _bedrock_crewai_review(
-    detail: AppealDetail,
-    bedrock_model: str,
-    *,
-    letter_context: str = "",
-) -> AppealAIReview:
-    from crewai import Agent, Crew, Process, Task
-
-    llm = build_llm_bedrock()
-    payload = _build_review_payload(detail, letter_context)
-    agent = Agent(
-        role="Appeal second-opinion reviewer",
-        goal="Critically review an appeal draft against knowledge-base documents and return QA JSON.",
-        backstory=(
-            "You are an independent auditor. You compare the draft to reference documents "
-            "from the internal corpus. You flag weak arguments and citation mismatches."
-        ),
-        llm=llm,
-        allow_delegation=False,
-    )
-    task = Task(
-        description=(
-            "Second opinion: appeal draft plus reference documents from the knowledge base.\n\n"
-            f"{payload}\n\n"
-            "Return ONLY compact JSON with keys: overall_score, ready_to_submit, issues, "
-            "missing_elements, citation_check, suggested_edits, recommended_action "
-            "(approve|edit|reject), summary. agrees_with_crewai_confidence: null."
-        ),
-        expected_output="Single JSON object matching AppealAIReview schema.",
-        agent=agent,
-    )
-    crew = Crew(agents=[agent], tasks=[task], process=Process.sequential, verbose=False)
-    out = crew.kickoff()
-    raw = getattr(out, "raw", None) or str(out)
-    review = _parse_ai_review(
-        str(raw),
-        crewai_model=detail.model_used,
-        reviewer_model=bedrock_model,
-    )
-    return _finalize_review(review, crewai_model=detail.model_used, reviewer_model=bedrock_model)
-
-
-def _on_bedrock_throttle(detail: AppealDetail, *, letter_context: str = "") -> AppealAIReview:
-    s = get_settings()
-    if s.bedrock_review_fallback_groq and s.groq_api_key:
-        return _groq_litellm_review_with_fallback(detail, letter_context=letter_context)
-    raise RuntimeError("bedrock_quota_exceeded")
+# --- Bedrock desativado: 2ª opinião usa apenas Groq (LiteLLM) ---
+#
+# def _bedrock_litellm_review(
+#     detail: AppealDetail,
+#     bedrock_model: str,
+#     *,
+#     letter_context: str = "",
+# ) -> AppealAIReview:
+#     ...
+#
+# def _bedrock_crewai_review(...) -> AppealAIReview:
+#     ...
+#
+# def _on_bedrock_throttle(...) -> AppealAIReview:
+#     ...
 
 
 def run_appeal_second_opinion(detail: AppealDetail, letter_context: str = "") -> AppealAIReview:
     """
     Second opinion: appeal draft + RAG documents from Chroma/embeddings.
-    Bedrock by default; Groq-only when BEDROCK_REVIEW_FALLBACK_GROQ=true (skips Bedrock).
-    LiteLLM direct call by default; optional CrewAI via BEDROCK_REVIEW_USE_CREWAI.
+    Groq only (LiteLLM) — Bedrock path commented out.
     """
     appeal_id = getattr(detail, "appeal_id", None) or getattr(detail, "id", None)
     appeal_key = str(appeal_id) if appeal_id else None
-    tags = workflow_tags(claim_id=appeal_key, phase="bedrock_review", extra=["bedrock_review"])
+    tags = workflow_tags(claim_id=appeal_key, phase="groq_review", extra=["groq_review"])
     with agentops_trace_context(trace_name="appeal-ai-review", tags=tags):
-        with bedrock_review_context(appeal_id=appeal_key):
-            s = get_settings()
-            if not s.bedrock_review_enabled:
-                raise RuntimeError("bedrock_review_disabled")
+        s = get_settings()
+        if not s.bedrock_review_enabled:
+            raise RuntimeError("ai_review_disabled")
 
-            if not (detail.draft_text or "").strip():
-                raise ValueError("draft_text_empty")
+        if not (detail.draft_text or "").strip():
+            raise ValueError("draft_text_empty")
 
-            if s.bedrock_review_fallback_groq:
-                if not s.groq_api_key:
-                    raise RuntimeError("groq_api_key_missing")
-                return _groq_litellm_review_with_fallback(detail, letter_context=letter_context)
-
-            ensure_bedrock_env()
-            bedrock_model = resolve_model_name(build_llm_bedrock())
-
-            try:
-                if s.bedrock_review_use_crewai:
-                    return _bedrock_crewai_review(detail, bedrock_model, letter_context=letter_context)
-                return _bedrock_litellm_review(detail, bedrock_model, letter_context=letter_context)
-            except Exception as err:
-                if is_bedrock_rate_limit_error(err):
-                    return _on_bedrock_throttle(detail, letter_context=letter_context)
-                raise
+        if not s.groq_api_key:
+            raise RuntimeError("groq_api_key_missing")
+        return _groq_litellm_review_with_fallback(detail, letter_context=letter_context)

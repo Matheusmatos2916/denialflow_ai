@@ -9,7 +9,8 @@ AI-native **healthcare denial resolution** platform: ingest denied claims, run a
 - **Backend**: FastAPI (async IO + background workflow runs), SQLite (`aiosqlite`), structured logging (`structlog`), request correlation (`request_id` / `trace_id`), in-memory ops metrics.
 - **Agents**: CrewAI crews for (1) denial classification, (2) financial prioritization, (3) research + appeal drafting (includes a **ChromaDB** retrieval tool).
 - **RAG**: OpenAI embeddings + Chroma persistent store under `data/chroma/`.
-- **Frontend**: Streamlit multi-page UI calling the REST API (decoupled like a real SaaS client).
+- **Frontend**: React + TypeScript SPA built with Vite; React Router handles navigation, TanStack Query manages API data, and the client communicates with FastAPI over HTTP.
+- **Authentication**: account registration and login issue JWT bearer tokens; the SPA stores the session in the browser and sends the token with API requests.
 
 ```mermaid
 flowchart LR
@@ -22,7 +23,7 @@ flowchart LR
   C3 --> CH[Chroma_tool]
   C3 --> DB[(SQLite)]
   RAG --> CH
-  UI[Streamlit] --> API
+  UI[React SPA] --> API
 ```
 
 ## Quickstart
@@ -42,17 +43,15 @@ python -m pip install -r requirements.txt
 
 Copy `.env.example` → `.env` and set `OPENAI_API_KEY`.
 
-**API authentication** (static Bearer token on all `/v1/*` routes; `/health` stays public):
+**API authentication**:
 
 ```bash
 # .env
 JWT_AUTH_ENABLED=true
 JWT_SECRET=your-long-random-secret
-python scripts/generate_api_token.py
-# Paste the printed API_ACCESS_TOKEN into .env (Streamlit reads it automatically)
 ```
 
-For local dev only, set `JWT_AUTH_ENABLED=false` to disable auth.
+With `JWT_AUTH_ENABLED=true`, users can create an account and sign in through the frontend; the API issues JWTs signed with `JWT_SECRET`. `/health` remains public. The optional `API_ACCESS_TOKEN` provides a static bearer token for trusted API clients and scripts. Do not put it in `frontend/.env.local` or expose it as `VITE_API_ACCESS_TOKEN` in a deployed frontend: Vite embeds `VITE_*` values in public browser assets. For local development only, set `JWT_AUTH_ENABLED=false` to disable authentication.
 
 **AgentOps** (optional LLM/agent tracing): set `AGENTOPS_API_KEY` from [AgentOps](https://app.agentops.ai/settings/projects). Leave empty to skip initialization. The API calls `agentops.init()` once at startup (CrewAI is auto-instrumented per [the CrewAI integration](https://docs.agentops.ai/v2/integrations/crewai)); each workflow run and Bedrock AI review opens its own session and ends it when finished, so Session Replay links work after the run completes—not the placeholder `default` trace printed at server startup. On Windows, if you see `UnicodeEncodeError` from emoji in AgentOps logs, restart the API after pulling latest code (stdout is forced to UTF-8) or set `PYTHONUTF8=1`.
 
@@ -67,29 +66,25 @@ python scripts/seed_vectorstore.py
 
 ### 4) Run API + UI
 
-Terminal A:
+Configure the frontend by copying `frontend/.env.example` to `frontend/.env.local`. Set `VITE_API_BASE` to the API URL (the default is `http://127.0.0.1:8000`); leave `VITE_API_ACCESS_TOKEN` empty when using account login.
+
+Terminal A — API (run from the repository root):
 
 ```bash
 python -m uvicorn denialflow_ai.api.app:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Terminal B:
+Terminal B — frontend:
 
 ```bash
-streamlit run streamlit_app/Home.py
+cd frontend
+npm ci
+npm run dev
 ```
 
-Run from the repo root so `.env` is picked up (`API_ACCESS_TOKEN`, `DENIALFLOW_API_BASE`). Override only if needed:
+Open `http://localhost:5173`, create an account or sign in, then use **Dashboard → Upload claims → Workflow runs → Claims analysis → Appeal review**. The frontend also includes the **Knowledge base** view.
 
-```bash
-set DENIALFLOW_API_BASE=http://127.0.0.1:8000
-set API_ACCESS_TOKEN=your-token-from-generate_api_token
-streamlit run streamlit_app/Home.py
-```
-
-Linux/macOS: use `export` instead of `set`.
-
-Open the Streamlit URL, then use **Upload → Workflow → Claims analysis → Appeal review**.
+To create a production frontend build, run `npm run build` from `frontend/`; the generated static assets are written to `frontend/dist/`. Set `VITE_API_BASE` to the deployed API URL before building, and review the API's CORS policy before exposing the deployment publicly.
 
 ## CSV columns
 
@@ -225,7 +220,7 @@ Each chunk is embedded with `text-embedding-3-small` (configurable) and stored i
 ## Repo map
 
 - `denialflow_ai/` — application code (API, services, crews, RAG, repos)
-- `streamlit_app/` — Streamlit UI
+- `frontend/` — React + TypeScript SPA (Vite, pages, API client and session context)
 - `data/seed_documents/` — synthetic policy + archived appeal snippets
 - `scripts/` — dataset + vector seed utilities
 - `tests/` — minimal unit tests

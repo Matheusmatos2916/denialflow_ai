@@ -116,7 +116,8 @@ class RagHit(BaseModel):
     doc_id: str
     title: str
     snippet: str
-    score: float
+    score: float | None = None
+    collection: str = ""
 
 
 class RagRetrievalResult(BaseModel):

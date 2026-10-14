@@ -1,0 +1,101 @@
+claim_id,denial_code,denial_reason,predicted_category,confidence,retrieved_docs_count
+CLM-DF-2025000,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025001,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025002,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025003,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025004,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025005,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025006,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025007,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025008,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025009,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025010,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025011,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025012,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025013,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025014,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025015,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025016,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025017,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025018,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025019,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025020,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025021,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025022,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025023,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025024,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025025,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025026,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025027,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025028,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025029,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025030,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025031,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025032,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.92,3
+CLM-DF-2025033,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025034,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025035,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025036,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025037,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025038,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025039,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025040,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025041,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025042,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025043,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025044,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025045,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025046,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025047,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025048,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025049,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025050,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025051,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025052,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025053,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025054,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025055,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025056,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025057,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025058,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025059,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025060,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025061,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025062,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025063,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025064,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025065,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025066,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025067,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025068,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025069,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025070,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025071,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025072,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025073,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025074,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025075,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025076,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025077,PR-96,Non-covered charge(s) (documentation does not support coded service).,documentation_required,0.92,3
+CLM-DF-2025078,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025079,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025080,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025081,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025082,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025083,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025084,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025085,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025086,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025087,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3
+CLM-DF-2025088,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025089,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025090,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025091,CO-97,The benefit for this service is included in the payment/allowance for another service.,bundled_service,0.95,3
+CLM-DF-2025092,CO-16,Claim/service lacks information which is needed for adjudication.,missing_information,0.95,3
+CLM-DF-2025093,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025094,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025095,CO-252,An attachment/other documentation is required to adjudicate this claim/service.,documentation_required,0.98,3
+CLM-DF-2025096,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025097,CO-18,Duplicate claim/service.,duplicate_claim,0.99,3
+CLM-DF-2025098,CO-50,These services are not medically necessary based on payer guidelines.,medical_necessity,0.95,3
+CLM-DF-2025099,CO-15,"The authorization number is missing, incomplete, or invalid.",authorization_issue,0.99,3

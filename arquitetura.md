@@ -1,10 +1,6 @@
 ---
 name: Diagrama arquitetura EVA
-overview: "Documentação da arquitetura do **DenialFlow AI** (POC): enquadramento teórico (problema/solução), detalhe de **CrewAI** (agentes, tasks, única tool RAG, LLM/fallback Groq), diagramas de fluxo técnico (Streamlit → FastAPI → SQLite/Chroma) e pipeline assíncrono."
-todos:
-  - id: optional-readme
-    content: "Opcional: incorporar ao README diagramas + teoria + secção CrewAI (agentes/tools) após aprovação"
-    status: pending
+overview: "Documentação da arquitetura do **DenialFlow AI** (POC): enquadramento teórico (problema/solução), detalhe de **CrewAI** (agentes, tasks, única tool RAG, LLM/fallback Groq), diagramas de fluxo técnico (React SPA → FastAPI → SQLite/Chroma) e pipeline assíncrono."
 isProject: false
 ---
 
@@ -66,21 +62,23 @@ flowchart LR
 - Risco de claims infundadas → **RAG + instruções anti-fabricação** na equipa de appeal e persistência das citações recuperadas.
 - Necessidade de controlo humano → **API de revisão** e estados terminais `approved` / `rejected` / `edited`.
 
-Na implementação deste repositório, estas etapas teóricas materializam-se nos artefactos já descritos abaixo (FastAPI, `workflow_service`, repositórios SQLite, Chroma, crews CrewAI e páginas Streamlit).
+Na implementação deste repositório, estas etapas teóricas materializam-se nos artefactos já descritos abaixo (SPA React, FastAPI, `workflow_service`, repositórios SQLite, Chroma e crews CrewAI).
 
 ## Visão em camadas (contexto do sistema)
 
 ```mermaid
 flowchart TB
   subgraph client [Cliente]
-    StreamlitUI[Streamlit_multipage]
-    HttpxClient[httpx_para_REST]
-    StreamlitUI --> HttpxClient
+    ReactSPA[React_TypeScript_Vite]
+    Router[React_Router]
+    ApiClient[fetch_API_client]
+    ReactSPA --> Router
+    Router --> ApiClient
   end
   subgraph api [Backend_FastAPI]
     App[create_app_denialflow_ai_api_app_py]
     Middleware[RequestContextMiddleware_structlog_metrics]
-    Routers[Routers_v1_claims_workflows_appeals_metrics]
+    Routers[Routers_auth_v1_claims_workflows_appeals_metrics_knowledge]
     App --> Middleware
     Middleware --> Routers
   end
@@ -113,45 +111,68 @@ flowchart TB
     RagAsync --> Embeddings
     RagSync --> Embeddings
   end
-  HttpxClient -->|"DENIALFLOW_API_BASE"| App
+  ApiClient -->|"VITE_API_BASE_HTTP"| App
 ```
 
 Pontos-chave:
 
 - Entrada principal da API: [`denialflow_ai/api/app.py`](denialflow_ai/api/app.py) (`create_app`, lifespan com `init_database`, CORS, middleware).
 - Dependência de DB por request: [`denialflow_ai/api/deps.py`](denialflow_ai/api/deps.py) (`db_conn` → `get_connection`).
-- UI não acessa SQLite/Chroma diretamente; apenas HTTP para `/v1/...`.
+- A SPA não acessa SQLite/Chroma diretamente; comunica-se com a API por HTTP.
+- O cliente HTTP da SPA (`frontend/src/api/client.ts`) envia o JWT da sessão como bearer token; `VITE_API_BASE` configura a origem da API.
+- O estado da sessão e dos IDs de batch/workflow é mantido no `localStorage` pelo `SessionContext`.
 
-## Rotas REST e páginas Streamlit
+## Frontend React e rotas REST
 
-| Área | Endpoints principais | Uso no Streamlit |
-|------|---------------------|------------------|
-| Claims | `POST /v1/claims/upload`, `GET /v1/claims`, `GET /v1/claims/summary` | [`streamlit_app/pages/2_Upload.py`](streamlit_app/pages/2_Upload.py), [`4_Claims_Analysis.py`](streamlit_app/pages/4_Claims_Analysis.py) |
-| Workflows | `POST /v1/workflows/run`, `GET /v1/workflows/...`, events | [`3_Workflow.py`](streamlit_app/pages/3_Workflow.py) |
-| Appeals HITL | `GET /v1/appeals`, detail, approve/reject/edit | [`5_Appeal_Review.py`](streamlit_app/pages/5_Appeal_Review.py) |
-| Métricas | `GET /v1/metrics/dashboard`, `/ops` | [`1_Dashboard.py`](streamlit_app/pages/1_Dashboard.py) |
+O frontend fica em `frontend/` e é uma SPA React com TypeScript e Vite. O React Router organiza as páginas, TanStack Query carrega e atualiza dados remotos, e `frontend/src/api/client.ts` centraliza as chamadas HTTP, o envio de bearer token e o tratamento de erros. A URL da API é configurada com `VITE_API_BASE` (padrão local: `http://127.0.0.1:8000`).
+
+| Página / área | Rota no frontend | Principais recursos da API |
+|---------------|------------------|---------------------------|
+| Login e cadastro | `/login`, `/register` | `POST /auth/login`, `POST /auth/register` |
+| Overview e dashboard | `/`, `/dashboard` | `GET /v1/metrics/dashboard`, `/v1/metrics/ops` |
+| Upload de claims | `/upload` | `POST /v1/claims/upload` |
+| Execuções do workflow | `/workflow` | `POST /v1/workflows/run`, consulta de execuções e eventos |
+| Análise de claims | `/claims` | `GET /v1/claims`, `GET /v1/claims/summary` |
+| Revisão de appeals (HITL) | `/appeals` | `GET /v1/appeals`, detalhe, aprovação, rejeição e edição |
+| Base de conhecimento | `/knowledge` | Rotas de conhecimento em `/v1/knowledge/` |
+
+O fluxo principal da interface é **upload → execução do workflow → análise dos claims → revisão humana dos appeals**. A SPA também apresenta o estado de conectividade da API e a base de conhecimento.
 
 ```mermaid
 flowchart LR
-  subgraph streamlit_pages [Streamlit]
-    P1[Dashboard]
-    P2[Upload]
-    P3[Workflow]
-    P4[Claims_Analysis]
-    P5[Appeal_Review]
+  subgraph react_spa [Frontend_React_Vite]
+    Auth[Login_cadastro]
+    Dashboard[Dashboard]
+    Upload[Upload_claims]
+    Workflow[Workflow_runs]
+    Claims[Claims_analysis]
+    Appeals[Appeal_review_HITL]
+    Knowledge[Knowledge_base]
+    ApiClient[API_client_JWT]
+    Auth --> ApiClient
+    Dashboard --> ApiClient
+    Upload --> ApiClient
+    Workflow --> ApiClient
+    Claims --> ApiClient
+    Appeals --> ApiClient
+    Knowledge --> ApiClient
   end
-  subgraph fastapi_v1 [FastAPI_prefix_v1]
-    M[/metrics/]
-    C[/claims/]
-    W[/workflows/]
-    A[/appeals/]
+  subgraph fastapi [FastAPI]
+    AuthApi[/auth/]
+    Metrics[/v1/metrics/]
+    ClaimsApi[/v1/claims/]
+    Workflows[/v1/workflows/]
+    AppealsApi[/v1/appeals/]
+    KnowledgeApi[/v1/knowledge/]
   end
-  P1 --> M
-  P2 --> C
-  P2 --> W
-  P3 --> W
-  P4 --> C
-  P5 --> A
+  Auth --> AuthApi
+  Dashboard --> Metrics
+  Upload --> ClaimsApi
+  Upload --> Workflows
+  Workflow --> Workflows
+  Claims --> ClaimsApi
+  Appeals --> AppealsApi
+  Knowledge --> KnowledgeApi
 ```
 
 ## Pipeline de workflow (coração do negócio)

@@ -1,0 +1,11 @@
+export type ApiList<T> = { items: T[] }
+export type Dashboard = { total_claims:number; denial_rate_proxy:number; recoverable_revenue_sum:number; awaiting_review:number; avg_run_duration_ms:number|null; runs_last_24h:number; priority_queue_top: Record<string, unknown>[] }
+export type UploadResult = { batch_id:string; filename:string; accepted_rows:number; errors: Record<string, unknown>[] }
+export type WorkflowStart = { run_id:string; batch_id:string; status:string }
+export type Claim = Record<string, any> & { claim_id?:string; status?:string }
+export type Appeal = Record<string, any> & { id:string; claim_id?:string; status:string }
+export type AppealDetail = Appeal & { draft_text:string; final_text?:string|null; confidence:number; model_used?:string; citations?:RagCitation[]; classification?:any; prioritization?:any; ai_review?:any }
+export type AuthResponse = { access_token:string; token_type:string; user:{ id:string; name:string; email:string } }
+export type ChromaCollection = { name:string; count:number; metadata:Record<string, unknown> }
+export type ChromaDocument = { id:string; document:string; metadata:Record<string, unknown> }
+export type RagCitation = { doc_id:string; title:string; snippet:string; score:number; collection?:string }

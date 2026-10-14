@@ -59,6 +59,8 @@ class Settings(BaseSettings):
     aws_access_key_id: str = Field(default="", alias="AWS_ACCESS_KEY_ID")
     aws_secret_access_key: str = Field(default="", alias="AWS_SECRET_ACCESS_KEY")
     aws_session_token: str = Field(default="", alias="AWS_SESSION_TOKEN")
+    aws_s3_bucket: str = Field(default="", alias="AWS_S3_BUCKET")
+    aws_s3_prefix: str = Field(default="collections", alias="AWS_S3_PREFIX")
     bedrock_model_review: str = Field(
         default="anthropic.claude-3-5-sonnet-20241022-v2:0",
         alias="BEDROCK_MODEL_REVIEW",

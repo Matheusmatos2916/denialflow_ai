@@ -108,6 +108,16 @@ CREATE TABLE IF NOT EXISTS appeals (
 
 CREATE INDEX IF NOT EXISTS idx_appeals_status ON appeals(status);
 
+CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+    password_hash TEXT NOT NULL,
+    created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
 CREATE TABLE IF NOT EXISTS audit_log (
     id TEXT PRIMARY KEY,
     entity_type TEXT NOT NULL,

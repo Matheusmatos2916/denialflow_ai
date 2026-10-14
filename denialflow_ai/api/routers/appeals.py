@@ -34,6 +34,7 @@ from denialflow_ai.schemas import (
     PrioritizationResult,
     RagHit,
 )
+from denialflow_ai.rag.sync_search import list_documents_sync, retrieve_sync
 
 router = APIRouter(prefix="/appeals", tags=["appeals"])
 logger = get_logger(__name__)
@@ -117,7 +118,18 @@ async def _build_appeal_detail(row: dict, conn: DbConn) -> AppealDetail:
     pri_row = await analysis.latest_prioritization(row["claim_internal_id"])
 
     citations_raw = json.loads(row["citations_json"] or "{}")
-    hits = [RagHit.model_validate(h) for h in citations_raw.get("hits", [])]
+    stored_collection = str(citations_raw.get("collection") or "")
+    hits = [
+        RagHit.model_validate(h).model_copy(
+            update={"collection": h.get("collection") or stored_collection}
+        )
+        for h in citations_raw.get("hits", [])
+    ]
+    if not hits and (row["draft_text"] or "").strip():
+        try:
+            hits = retrieve_sync(row["draft_text"], top_k=6).hits
+        except Exception:  # noqa: BLE001 — references are supplemental to the appeal detail
+            hits = list_documents_sync(top_k=6).hits
 
     cls = (
         ClassificationResult(
@@ -191,9 +203,9 @@ async def get_appeal(appeal_id: str, conn: DbConn) -> AppealDetail:
 
 @router.post("/{appeal_id}/ai-review", response_model=AppealAIReview)
 async def appeal_ai_review(appeal_id: str, conn: DbConn) -> AppealAIReview:
-    """Bedrock second opinion on the CrewAI/Groq draft (does not auto-approve)."""
+    """Groq second opinion on the CrewAI/Groq draft (does not auto-approve)."""
     if not get_settings().bedrock_review_enabled:
-        raise HTTPException(status_code=503, detail="bedrock_review_disabled")
+        raise HTTPException(status_code=503, detail="ai_review_disabled")
 
     appeals = AppealRepository(conn)
     row = await appeals.get(appeal_id)
@@ -218,22 +230,9 @@ async def appeal_ai_review(appeal_id: str, conn: DbConn) -> AppealAIReview:
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
     except RuntimeError as e:
-        msg = str(e)
-        if msg == "bedrock_quota_exceeded":
-            raise HTTPException(
-                status_code=429,
-                detail=(
-                    "bedrock_quota_exceeded: cota diária de tokens do Bedrock esgotada. "
-                    "Aguarde o reset (UTC), solicite aumento de quota no console AWS, "
-                    "ou defina BEDROCK_REVIEW_FALLBACK_GROQ=true no .env."
-                ),
-            ) from e
-        raise HTTPException(status_code=503, detail=msg) from e
+        raise HTTPException(status_code=503, detail=str(e)) from e
     except Exception as e:  # noqa: BLE001
-        from denialflow_ai.crews.llm_config import (
-            is_bedrock_rate_limit_error,
-            is_groq_rate_limit_error,
-        )
+        from denialflow_ai.crews.llm_config import is_groq_rate_limit_error
 
         if is_groq_rate_limit_error(e):
             raise HTTPException(
@@ -244,18 +243,9 @@ async def appeal_ai_review(appeal_id: str, conn: DbConn) -> AppealAIReview:
                     "do provedor ou altere GROQ_MODEL_* no .env."
                 ),
             ) from e
-        if is_bedrock_rate_limit_error(e):
-            raise HTTPException(
-                status_code=429,
-                detail=(
-                    "bedrock_quota_exceeded: cota diária de tokens do Bedrock esgotada. "
-                    "Aguarde o reset (UTC), solicite aumento de quota no console AWS, "
-                    "ou defina BEDROCK_REVIEW_FALLBACK_GROQ=true no .env."
-                ),
-            ) from e
-        raise HTTPException(status_code=502, detail=f"bedrock_review_failed: {e}") from e
+        raise HTTPException(status_code=502, detail=f"groq_review_failed: {e}") from e
 
-    model_label = review.model_used or get_settings().bedrock_model_review
+    model_label = review.model_used or get_settings().groq_model_primary
     await appeals.save_ai_review(
         appeal_id,
         review.model_dump_json(),
@@ -264,7 +254,7 @@ async def appeal_ai_review(appeal_id: str, conn: DbConn) -> AppealAIReview:
     await AuditRepository(conn).append(
         "appeal",
         appeal_id,
-        "bedrock",
+        "groq",
         "second_opinion",
         {
             "claim_internal_id": row["claim_internal_id"],

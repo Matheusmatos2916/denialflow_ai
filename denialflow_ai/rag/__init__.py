@@ -20,9 +20,15 @@ def _get_collection() -> Collection:
     s = get_settings()
     s.chroma_persist_dir.mkdir(parents=True, exist_ok=True)
     client = chromadb.PersistentClient(path=str(s.chroma_persist_dir))
-    return client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        metadata={"hnsw:space": "cosine"},
+    non_empty = None
+    for item in client.list_collections():
+        collection = item if hasattr(item, "name") else client.get_collection(name=str(item))
+        if (collection.metadata or {}).get("active") is True:
+            return collection
+        if non_empty is None and collection.count() > 0:
+            non_empty = collection
+    return non_empty or client.get_or_create_collection(
+        name=COLLECTION_NAME, metadata={"hnsw:space": "cosine"}
     )
 
 
@@ -46,6 +52,7 @@ async def retrieve_for_claim(claim_summary: str, top_k: int = 6) -> RagRetrieval
     for i, doc_id in enumerate(ids[0]):
         meta = (metas[0][i] if metas and metas[0] else {}) or {}
         title = str(meta.get("title") or meta.get("source") or "document")
+        collection_name = str(col.name)
         snippet = (docs[0][i] if docs and docs[0] else "") or ""
         dist = (dists[0][i] if dists and dists[0] else 0.0) or 0.0
         score = float(1.0 / (1.0 + float(dist)))
@@ -54,9 +61,10 @@ async def retrieve_for_claim(claim_summary: str, top_k: int = 6) -> RagRetrieval
         hits.append(
             RagHit(
                 doc_id=str(doc_id),
-                title=title,
+                title=f"{title} · {collection_name}",
                 snippet=snippet[:1200],
                 score=score,
+                collection=collection_name,
             )
         )
     dedup: dict[str, RagHit] = {}

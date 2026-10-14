@@ -29,10 +29,10 @@ if str(ROOT) not in sys.path:
 # Imports
 # =========================
 import chromadb  # noqa: E402
-from langchain_text_splitters import RecursiveCharacterTextSplitter  # noqa: E402
 from openai import OpenAI  # noqa: E402
 
 from denialflow_ai.core.config import get_settings  # noqa: E402
+from denialflow_ai.rag.ingest import ingest_text  # noqa: E402
 
 # =========================
 # Constants
@@ -73,26 +73,11 @@ def main() -> None:
     )
 
     # =========================
-    # Text splitter
-    # =========================
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=900,
-        chunk_overlap=120,
-    )
-
-    # =========================
     # OpenAI client
     # =========================
     oai = OpenAI(
         api_key=s.openai_api_key
     )
-
-    # =========================
-    # Storage buffers
-    # =========================
-    ids: list[str] = []
-    documents: list[str] = []
-    metadatas: list[dict] = []
 
     # =========================
     # Load markdown files
@@ -108,72 +93,20 @@ def main() -> None:
 
     print(f"Found {len(md_files)} markdown files.")
 
-    # =========================
-    # Chunk documents
-    # =========================
+    total_chunks = 0
     for path in md_files:
         print(f"Processing: {path.name}")
-
         text = path.read_text(encoding="utf-8")
-
-        title = path.stem.replace("_", " ").title()
-
-        chunks = splitter.split_text(text)
-
-        for i, chunk in enumerate(chunks):
-            doc_id = f"{path.stem}:{i}"
-
-            ids.append(doc_id)
-            documents.append(chunk)
-
-            metadatas.append(
-                {
-                    "source": path.name,
-                    "title": title,
-                    "chunk": str(i),
-                }
-            )
-
-    print(f"Generated {len(documents)} chunks.")
-
-    # =========================
-    # Generate embeddings
-    # =========================
-    batch_size = 64
-
-    for start in range(0, len(documents), batch_size):
-        end = min(start + batch_size, len(documents))
-
-        sub_docs = documents[start:end]
-
-        try:
-            emb = oai.embeddings.create(
+        def embed_batch(batch: list[str]) -> list[list[float]]:
+            response = oai.embeddings.create(
                 model=s.openai_embedding_model,
-                input=sub_docs,
+                input=batch,
             )
+            return [item.embedding for item in response.data]
 
-            vectors = [
-                item.embedding
-                for item in emb.data
-            ]
-
-            coll.upsert(
-                ids=ids[start:end],
-                documents=sub_docs,
-                metadatas=metadatas[start:end],
-                embeddings=vectors,
-            )
-
-            print(
-                f"Upserted {start}-{end} "
-                f"of {len(documents)}"
-            )
-
-        except Exception as e:
-            print(
-                f"Error embedding batch "
-                f"{start}-{end}: {e}"
-            )
+        result = ingest_text(coll, text, path.name, embed_batch=embed_batch)
+        total_chunks += result["chunks"]
+        print(f"Upserted {result['chunks']} chunks from {path.name}")
 
     # =========================
     # Done
@@ -181,7 +114,7 @@ def main() -> None:
     print(
         f"Done. "
         f"Collection={COLLECTION} "
-        f"chunks={len(documents)}"
+        f"chunks={total_chunks}"
     )
 
 

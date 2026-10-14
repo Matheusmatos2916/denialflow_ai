@@ -121,7 +121,7 @@ FIELDNAMES = [
 def main() -> None:
     random.seed(42)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    rows = 320
+    rows = int(os.getenv("DEMO_SAMPLE_ROWS", "1000"))
     with OUT.open("w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDNAMES)
         w.writeheader()

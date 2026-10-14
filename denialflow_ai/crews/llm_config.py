@@ -58,7 +58,7 @@ def ensure_bedrock_env() -> None:
 
 def _with_provider_prefix(provider: str, model_id: str) -> str:
     """CrewAI expects provider/model (e.g. groq/llama-3.3-70b-versatile)."""
-    if "/" in model_id:
+    if model_id.lower().startswith(f"{provider.lower()}/"):
         return model_id
     return f"{provider}/{model_id}"
 

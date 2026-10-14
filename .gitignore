@@ -5,6 +5,7 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .env
+frontend/.env.local
 gcp/key_gmail.json
 gcp/gmail_token.json
 gcp/token.json

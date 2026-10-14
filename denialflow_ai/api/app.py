@@ -12,7 +12,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from denialflow_ai.api.deps import get_current_principal
-from denialflow_ai.api.routers import appeals, claims, metrics, workflows
+from denialflow_ai.api.routers import appeals, auth, claims, knowledge, metrics, workflows
 from denialflow_ai.core.config import get_settings
 from denialflow_ai.core.logging import (
     configure_logging,
@@ -80,11 +80,13 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.include_router(auth.router)
     auth_dep = [Depends(get_current_principal)]
     app.include_router(claims.router, prefix="/v1", dependencies=auth_dep)
     app.include_router(workflows.router, prefix="/v1", dependencies=auth_dep)
     app.include_router(appeals.router, prefix="/v1", dependencies=auth_dep)
     app.include_router(metrics.router, prefix="/v1", dependencies=auth_dep)
+    app.include_router(knowledge.router, prefix="/v1", dependencies=auth_dep)
 
     @app.get("/health")
     async def health() -> dict[str, str]:

@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import asyncio
+from typing import Any
 
 from crewai import Agent, Crew, Process, Task
+from pydantic import ValidationError
 
 from denialflow_ai.crews.llm_config import (
     build_llm,
@@ -17,6 +19,43 @@ from denialflow_ai.schemas import ClassificationResult
 
 def _parse_classification(raw: str) -> ClassificationResult:
     return get_llm_client().parse_json_blob(raw, ClassificationResult)
+
+
+def _deterministic_classification(payload: str) -> ClassificationResult:
+    """Keep a malformed model response from terminating the whole workflow."""
+    text = payload.lower()
+    rules: tuple[tuple[str, tuple[str, ...]], ...] = (
+        ("authorization", ("authorization", "prior auth", "preauthorization", "referral")),
+        ("duplicate_claim", ("duplicate", "duplicated", "same claim")),
+        ("coding_issue", ("coding", "cpt", "hcpcs", "modifier", "unbundl")),
+        ("medical_necessity", ("medical necessity", "not medically necessary")),
+        ("incomplete_documentation", ("documentation", "operative report", "missing record")),
+    )
+    for category, keywords in rules:
+        if any(keyword in text for keyword in keywords):
+            return ClassificationResult(
+                category=category,
+                confidence=0.35,
+                explanation=(
+                    "Deterministic fallback based on denial text; model output was incomplete. "
+                    f"Matched category signal: {category}."
+                ),
+            )
+    return ClassificationResult(
+        category="incomplete_documentation",
+        confidence=0.2,
+        explanation=(
+            "Deterministic fallback used because the model response was incomplete; "
+            "manual classification review is required."
+        ),
+    )
+
+
+def _coerce_classification(data: dict[str, Any], payload: str) -> ClassificationResult:
+    try:
+        return ClassificationResult.model_validate(data)
+    except ValidationError:
+        return _deterministic_classification(payload)
 
 
 def run_denial_classification(claim_payload: str) -> tuple[ClassificationResult, str]:
@@ -77,6 +116,6 @@ def run_denial_classification(claim_payload: str) -> tuple[ClassificationResult,
         )
         user = f"Claim record:\n{claim_payload}"
         data = asyncio.run(oai.chat_json(system=sys, user=user, allow_fallback=True))
-        result = oai.parse_pydantic(data, ClassificationResult)
+        result = _coerce_classification(data, claim_payload)
         cache.set(claim_payload, result.model_dump())
         return result, "llm_fallback_json"
