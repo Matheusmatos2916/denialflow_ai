@@ -213,7 +213,7 @@ More examples: [`examples/http/api.http`](examples/http/api.http).
 
 When a reviewer **approves** or **submits an edit**, the API e-mails the same text saved as `final_text` to `GMAIL_TO`. **Reject** does not send e-mail.
 
-**Personal Gmail** (e.g. `testescursor46@gmail.com`):
+**Personal Gmail** (e.g. `test@gmail.com`):
 
 1. Enable **Gmail API** on your GCP project.
 2. Create an **OAuth 2.0 Client ID** (type Web or Desktop), download JSON to `gcp/key_gmail.json` (gitignored).
@@ -224,8 +224,8 @@ When a reviewer **approves** or **submits an edit**, the API e-mails the same te
 GMAIL_NOTIFY_ENABLED=true
 GMAIL_SERVICE_ACCOUNT_FILE=gcp/key_gmail.json
 GMAIL_OAUTH_TOKEN_FILE=gcp/gmail_token.json
-GMAIL_IMPERSONATE_USER=testescursor46@gmail.com
-GMAIL_TO=testescursor46@gmail.com
+GMAIL_IMPERSONATE_USER=test@gmail.com
+GMAIL_TO=test@gmail.com
 ```
 
 5. One-time authorization (sign in as that Gmail account):
