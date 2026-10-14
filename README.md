@@ -160,6 +160,53 @@ The second opinion sends the **appeal draft** (`draft_text`) plus **reference do
 
 If you see `bedrock_quota_exceeded` / “Too many tokens”, the account hit Bedrock quota/throttle for that model in `AWS_REGION`. Wait for the UTC reset, request a quota increase under **Bedrock → Quotas**, switch `BEDROCK_MODEL_REVIEW`, or set `BEDROCK_REVIEW_FALLBACK_GROQ=true` (second opinion via Groq; `model_used` is prefixed with `groq-fallback:`).
 
+### AWS CLI and S3 document copies (optional)
+
+The knowledge-base API can optionally keep an S3 copy of documents uploaded to or updated in Chroma. Chroma remains the local vector index; S3 stores the original file at `s3://<bucket>/<prefix>/<collection>/<filename>`. Deleting a document or collection from the knowledge base does **not** delete its S3 object. If `AWS_S3_BUCKET` is empty, S3 copying is disabled.
+
+Install AWS CLI v2 (Windows):
+
+```powershell
+winget install -e --id Amazon.AWSCLI
+aws --version
+```
+
+Create an IAM user/profile for local development (do not use root credentials), then configure and verify it:
+
+```powershell
+aws configure --profile denialflow
+aws sts get-caller-identity --profile denialflow
+$env:AWS_PROFILE = "denialflow"
+```
+
+When prompted, enter the IAM access key, secret, default region (for example `us-east-1`), and `json`. In AWS-hosted environments, prefer an IAM role or temporary credentials over static keys.
+
+Create a bucket with a globally unique name. For `us-east-1`:
+
+```powershell
+$Bucket = "denialflow-your-unique-bucket-name"
+$Region = "us-east-1"
+aws s3api create-bucket --bucket $Bucket --region $Region --profile denialflow
+aws s3api put-public-access-block --bucket $Bucket --profile denialflow --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+```
+
+For a region other than `us-east-1`, add `--create-bucket-configuration LocationConstraint=$Region` to the `create-bucket` command. Keep all public-access blocks enabled. Give the API's IAM identity only `s3:PutObject` on `arn:aws:s3:::<your-bucket>/collections/*`; bucket provisioning permissions are not needed at runtime.
+
+Set these values in the repository-root `.env`:
+
+```env
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=denialflow-your-unique-bucket-name
+AWS_S3_PREFIX=collections
+
+# Leave blank when the API uses AWS_PROFILE or an IAM role.
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+# AWS_SESSION_TOKEN=  # only for temporary credentials supplied directly
+```
+
+`AWS_REGION` is also used for Bedrock. With a local profile, start the API from the terminal where `AWS_PROFILE=denialflow` is set. Alternatively, provide credentials via the environment variables above; do not commit real credentials or `.env`. After uploading a document in **Knowledge base**, the API response's `s3` field reports `uploaded` with the bucket and key, `disabled` when no bucket is configured, or `failed` if S3 upload did not succeed.
+
 More examples: [`examples/http/api.http`](examples/http/api.http).
 
 ### E-mail on human approve/edit (Gmail API / GCP)

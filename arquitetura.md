@@ -328,6 +328,101 @@ flowchart LR
 - [`denialflow_ai/observability/middleware.py`](denialflow_ai/observability/middleware.py): `x-request-id`, `trace_id`, contadores e latência via [`get_metrics()`](denialflow_ai/observability/__init__.py) (usado também em [`denialflow_ai/api/routers/metrics.py`](denialflow_ai/api/routers/metrics.py)).
 - Logging estruturado no startup (`configure_logging` no lifespan).
 
+## AWS CLI e armazenamento de documentos no S3
+
+O S3 é opcional e funciona como cópia dos documentos enviados à base de conhecimento; o índice vetorial continua no Chroma local. A integração está em [`aws/s3_copy.py`](aws/s3_copy.py): nas operações de inclusão ou atualização de documentos, a API indexa o conteúdo no Chroma e, se `AWS_S3_BUCKET` estiver configurado, grava o arquivo original no S3 em `s3://<bucket>/<prefix>/<coleção>/<arquivo>`. O prefixo padrão é `collections`. Com o bucket vazio, a cópia retorna `disabled`; falhas no S3 são informadas no campo `s3` da resposta e não desfazem a indexação local. Excluir um documento ou coleção do Chroma não exclui automaticamente o objeto do S3.
+
+### 1. Instalar e configurar o AWS CLI (Windows)
+
+Instale o AWS CLI v2 pelo instalador oficial ou pelo WinGet:
+
+```powershell
+winget install -e --id Amazon.AWSCLI
+aws --version
+```
+
+Configure um perfil local usando credenciais IAM apropriadas para desenvolvimento:
+
+```powershell
+aws configure --profile denialflow
+```
+
+Informe o Access Key ID, Secret Access Key, região (por exemplo, `us-east-1`) e formato `json`. Não use credenciais de root da conta AWS. Em ambientes AWS, prefira roles/credenciais temporárias em vez de chaves estáticas.
+
+Valide a identidade configurada:
+
+```powershell
+aws sts get-caller-identity --profile denialflow
+```
+
+Para a API usar esse perfil, defina `AWS_PROFILE` no terminal que inicia o backend:
+
+```powershell
+$env:AWS_PROFILE = "denialflow"
+```
+
+O SDK boto3 usado pelo serviço lê esse perfil da cadeia padrão de credenciais. Alternativamente, ele aceita credenciais diretamente pelas variáveis `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` e, para credenciais temporárias, `AWS_SESSION_TOKEN`. Não adicione credenciais reais ao Git.
+
+### 2. Criar e proteger o bucket
+
+Escolha um nome globalmente único e uma região. Para a região padrão `us-east-1`:
+
+```powershell
+$Bucket = "denialflow-seu-nome-unico"
+$Region = "us-east-1"
+aws s3api create-bucket --bucket $Bucket --region $Region --profile denialflow
+```
+
+Para outra região, acrescente à chamada de criação:
+
+```powershell
+--create-bucket-configuration LocationConstraint=$Region
+```
+
+Mantenha o acesso público bloqueado. A configuração abaixo reforça os quatro controles de bloqueio:
+
+```powershell
+aws s3api put-public-access-block --bucket $Bucket --profile denialflow --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+```
+
+Conceda à identidade usada pela aplicação somente `s3:PutObject` no prefixo necessário. Por exemplo, substitua o nome do bucket e associe esta política IAM à role/usuário da aplicação:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::denialflow-seu-nome-unico/collections/*"
+    }
+  ]
+}
+```
+
+A criação do bucket e a configuração de acesso público são operações de provisionamento; não precisam ser concedidas à identidade de runtime da API.
+
+### 3. Configurar a aplicação
+
+Copie `.env.example` para `.env` na raiz do projeto e configure:
+
+```dotenv
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=denialflow-seu-nome-unico
+AWS_S3_PREFIX=collections
+
+# Ao usar o perfil AWS_PROFILE, deixe as três variáveis de credenciais vazias.
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+# AWS_SESSION_TOKEN=   # necessário somente para credenciais temporárias fornecidas diretamente
+```
+
+Se optar por chaves diretamente no `.env`, preencha-as localmente e não versione esse arquivo. `AWS_REGION` deve corresponder à região do bucket. Reinicie o backend após alterar a configuração.
+
+### 4. Verificar
+
+Com o perfil e o bucket configurados, confirme a identidade AWS com `aws sts get-caller-identity --profile denialflow`, inicie a API no mesmo terminal onde `AWS_PROFILE` está definido e envie um documento pela base de conhecimento. A resposta da API inclui `s3.status`, `s3.bucket` e `s3.key` quando a cópia for concluída; o objeto ficará sob `collections/<coleção>/<arquivo>`. O bucket vazio mantém a integração desativada.
+
 ## Modelo de dados SQLite (resumo)
 
 Definido em [`denialflow_ai/db/__init__.py`](denialflow_ai/db/__init__.py): `batches`, `claims`, `workflow_runs`, `workflow_events`, `classification_results`, `prioritization_results`, `rag_retrievals`, `appeals`, `audit_log`.
